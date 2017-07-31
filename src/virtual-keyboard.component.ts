@@ -190,6 +190,9 @@ export class VirtualKeyboardComponent implements OnInit, OnDestroy {
   public keyPress(event: KeyPressInterface): void {
     if (event.special) {
       this.handleSpecialKey(event);
+
+      this.dispatchEvents(event);
+      
     } else {
       this.handleNormalKey(event.keyValue);
 

@@ -3,7 +3,7 @@ let webpack = require('webpack');
 
 module.exports = {
   entry: {
-    '@protacon/ng-virtual-keyboard': path.join(__dirname, 'src', 'index.ts'),
+    '@xroussel/ng-virtual-keyboard': path.join(__dirname, 'src', 'index.ts'),
   },
   resolve: {
     extensions: [

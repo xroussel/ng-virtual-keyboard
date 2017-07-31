@@ -58,12 +58,12 @@ var VirtualKeyboardService = (function () {
     VirtualKeyboardService.prototype.reset = function () {
         this.setShift(false);
     };
+    VirtualKeyboardService.decorators = [
+        { type: core_1.Injectable },
+    ];
+    /** @nocollapse */
+    VirtualKeyboardService.ctorParameters = function () { return []; };
     return VirtualKeyboardService;
 }());
-VirtualKeyboardService.decorators = [
-    { type: core_1.Injectable },
-];
-/** @nocollapse */
-VirtualKeyboardService.ctorParameters = function () { return []; };
 exports.VirtualKeyboardService = VirtualKeyboardService;
 //# sourceMappingURL=virtual-keyboard.service.js.map

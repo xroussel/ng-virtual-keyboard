@@ -19,6 +19,7 @@ import {
 export class NgVirtualKeyboardDirective {
   private opened = false;
   private focus = true;
+  public dialogRef:MdDialogRef<VirtualKeyboardComponent>;
 
   @Input('ng-virtual-keyboard-layout') layout: KeyboardLayout|string;
   @Input('ng-virtual-keyboard-placeholder') placeholder: string;
@@ -59,18 +60,16 @@ export class NgVirtualKeyboardDirective {
   /**
    * Method to open virtual keyboard
    */
-  private openKeyboard() {
+  public openKeyboard() {
     if (!this.opened && this.focus) {
       this.opened = true;
 
-      let dialogRef: MdDialogRef<VirtualKeyboardComponent>;
+      this.dialogRef = this.dialog.open(VirtualKeyboardComponent);
+      this.dialogRef.componentInstance.inputElement = this.element;
+      this.dialogRef.componentInstance.layout = this.getLayout();
+      this.dialogRef.componentInstance.placeholder = this.getPlaceHolder();
 
-      dialogRef = this.dialog.open(VirtualKeyboardComponent);
-      dialogRef.componentInstance.inputElement = this.element;
-      dialogRef.componentInstance.layout = this.getLayout();
-      dialogRef.componentInstance.placeholder = this.getPlaceHolder();
-
-      dialogRef
+      this.dialogRef
         .afterClosed()
         .subscribe(() => {
           setTimeout(() => {
@@ -80,12 +79,18 @@ export class NgVirtualKeyboardDirective {
     }
   }
 
+  public closeKeyBoard() {
+    if(this.opened) {
+      this.dialogRef.close()
+    }
+  }
+
   /**
    * Getter for used keyboard layout.
    *
    * @returns {KeyboardLayout}
    */
-  private getLayout(): KeyboardLayout {
+  public getLayout(): KeyboardLayout {
     let layout;
 
     switch (this.layout) {
@@ -120,7 +125,7 @@ export class NgVirtualKeyboardDirective {
    *
    * @returns {string}
    */
-  private getPlaceHolder(): string {
+  public getPlaceHolder(): string {
     return this.placeholder ? this.placeholder : this.element.nativeElement.placeholder;
   }
 }

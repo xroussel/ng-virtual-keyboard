@@ -1,5 +1,5 @@
 {
-  "name": "@protacon/ng-virtual-keyboard",
+  "name": "@xroussel/ng-virtual-keyboard",
   "version": "0.6.0",
   "description": "Virtual Keyboard for Angular applications",
   "main": "dist/ng-virtual-keyboard.umd.js",

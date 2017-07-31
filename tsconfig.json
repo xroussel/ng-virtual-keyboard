@@ -23,7 +23,7 @@
     "outDir": "dist",
     "baseUrl": "src",
     "paths": {
-      "ProtaconSolutions/ng-virtual-keyboard": ["./index"]
+      "xroussel/ng-virtual-keyboard": ["./index"]
     }
   },
   "files": [

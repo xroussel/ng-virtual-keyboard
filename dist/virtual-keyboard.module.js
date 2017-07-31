@@ -12,37 +12,37 @@ var virtual_keyboard_service_1 = require("./virtual-keyboard.service");
 var NgVirtualKeyboardModule = (function () {
     function NgVirtualKeyboardModule() {
     }
+    NgVirtualKeyboardModule.decorators = [
+        { type: core_1.NgModule, args: [{
+                    declarations: [
+                        virtual_keyboard_directive_1.NgVirtualKeyboardDirective,
+                        virtual_keyboard_component_1.VirtualKeyboardComponent,
+                        virtual_keyboard_key_component_1.VirtualKeyboardKeyComponent,
+                    ],
+                    providers: [
+                        virtual_keyboard_service_1.VirtualKeyboardService,
+                    ],
+                    imports: [
+                        common_1.CommonModule,
+                        forms_1.FormsModule,
+                        forms_1.ReactiveFormsModule,
+                        flex_layout_1.FlexLayoutModule,
+                        material_1.MdButtonModule,
+                        material_1.MdDialogModule,
+                        material_1.MdIconModule,
+                        material_1.MdInputModule,
+                    ],
+                    entryComponents: [
+                        virtual_keyboard_component_1.VirtualKeyboardComponent,
+                    ],
+                    exports: [
+                        virtual_keyboard_directive_1.NgVirtualKeyboardDirective,
+                    ]
+                },] },
+    ];
+    /** @nocollapse */
+    NgVirtualKeyboardModule.ctorParameters = function () { return []; };
     return NgVirtualKeyboardModule;
 }());
-NgVirtualKeyboardModule.decorators = [
-    { type: core_1.NgModule, args: [{
-                declarations: [
-                    virtual_keyboard_directive_1.NgVirtualKeyboardDirective,
-                    virtual_keyboard_component_1.VirtualKeyboardComponent,
-                    virtual_keyboard_key_component_1.VirtualKeyboardKeyComponent,
-                ],
-                providers: [
-                    virtual_keyboard_service_1.VirtualKeyboardService,
-                ],
-                imports: [
-                    common_1.CommonModule,
-                    forms_1.FormsModule,
-                    forms_1.ReactiveFormsModule,
-                    flex_layout_1.FlexLayoutModule,
-                    material_1.MdButtonModule,
-                    material_1.MdDialogModule,
-                    material_1.MdIconModule,
-                    material_1.MdInputModule,
-                ],
-                entryComponents: [
-                    virtual_keyboard_component_1.VirtualKeyboardComponent,
-                ],
-                exports: [
-                    virtual_keyboard_directive_1.NgVirtualKeyboardDirective,
-                ]
-            },] },
-];
-/** @nocollapse */
-NgVirtualKeyboardModule.ctorParameters = function () { return []; };
 exports.NgVirtualKeyboardModule = NgVirtualKeyboardModule;
 //# sourceMappingURL=virtual-keyboard.module.js.map

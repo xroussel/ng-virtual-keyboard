@@ -1,11 +1,13 @@
 import { ElementRef } from '@angular/core';
-import { MdDialog } from '@angular/material';
+import { MdDialog, MdDialogRef } from '@angular/material';
+import { VirtualKeyboardComponent } from './virtual-keyboard.component';
 import { KeyboardLayout } from './layouts';
 export declare class NgVirtualKeyboardDirective {
     private element;
     private dialog;
     private opened;
     private focus;
+    dialogRef: MdDialogRef<VirtualKeyboardComponent>;
     layout: KeyboardLayout | string;
     placeholder: string;
     onWindowBlur(): void;
@@ -22,17 +24,18 @@ export declare class NgVirtualKeyboardDirective {
     /**
      * Method to open virtual keyboard
      */
-    private openKeyboard();
+    openKeyboard(): void;
+    closeKeyBoard(): void;
     /**
      * Getter for used keyboard layout.
      *
      * @returns {KeyboardLayout}
      */
-    private getLayout();
+    getLayout(): KeyboardLayout;
     /**
      * Getter for used placeholder for virtual keyboard input field.
      *
      * @returns {string}
      */
-    private getPlaceHolder();
+    getPlaceHolder(): string;
 }
