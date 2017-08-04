@@ -1,4 +1,4 @@
-import { Directive, ElementRef, HostListener, Input } from '@angular/core';
+import { Directive, ElementRef, HostListener, Input, EventEmitter, Output } from '@angular/core';
 import { MdDialog, MdDialogRef } from '@angular/material';
 
 import { VirtualKeyboardComponent } from './virtual-keyboard.component';
@@ -20,6 +20,7 @@ export class NgVirtualKeyboardDirective {
   private opened = false;
   private focus = true;
   public dialogRef:MdDialogRef<VirtualKeyboardComponent>;
+  public virtualKeyboardComponent:VirtualKeyboardComponent ;
 
   @Input('ng-virtual-keyboard-layout') layout: KeyboardLayout|string;
   @Input('ng-virtual-keyboard-placeholder') placeholder: string;
@@ -65,6 +66,7 @@ export class NgVirtualKeyboardDirective {
       this.opened = true;
 
       this.dialogRef = this.dialog.open(VirtualKeyboardComponent);
+      this.virtualKeyboardComponent = this.dialogRef.componentInstance ;
       this.dialogRef.componentInstance.inputElement = this.element;
       this.dialogRef.componentInstance.layout = this.getLayout();
       this.dialogRef.componentInstance.placeholder = this.getPlaceHolder();

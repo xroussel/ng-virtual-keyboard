@@ -259,6 +259,7 @@ var NgVirtualKeyboardDirective = (function () {
         if (!this.opened && this.focus) {
             this.opened = true;
             this.dialogRef = this.dialog.open(virtual_keyboard_component_1.VirtualKeyboardComponent);
+            this.virtualKeyboardComponent = this.dialogRef.componentInstance;
             this.dialogRef.componentInstance.inputElement = this.element;
             this.dialogRef.componentInstance.layout = this.getLayout();
             this.dialogRef.componentInstance.placeholder = this.getPlaceHolder();
@@ -390,6 +391,7 @@ var VirtualKeyboardComponent = (function () {
     function VirtualKeyboardComponent(dialogRef, virtualKeyboardService) {
         this.dialogRef = dialogRef;
         this.virtualKeyboardService = virtualKeyboardService;
+        this.confirm = new core_1.EventEmitter();
         this.shift = false;
     }
     VirtualKeyboardComponent_1 = VirtualKeyboardComponent;
@@ -457,6 +459,10 @@ var VirtualKeyboardComponent = (function () {
      * Method to close virtual keyboard dialog
      */
     VirtualKeyboardComponent.prototype.close = function () {
+        this.dialogRef.close();
+    };
+    VirtualKeyboardComponent.prototype.confirmDispatch = function () {
+        this.confirm.emit();
         this.dialogRef.close();
     };
     /**
@@ -596,10 +602,14 @@ var VirtualKeyboardComponent = (function () {
         core_1.ViewChild('keyboardInput'),
         __metadata("design:type", core_1.ElementRef)
     ], VirtualKeyboardComponent.prototype, "keyboardInput", void 0);
+    __decorate([
+        core_1.Output(),
+        __metadata("design:type", Object)
+    ], VirtualKeyboardComponent.prototype, "confirm", void 0);
     VirtualKeyboardComponent = VirtualKeyboardComponent_1 = __decorate([
         core_1.Component({
             selector: 'virtual-keyboard',
-            template: "\n    <div class=\"container\">\n      <div fxLayout=\"column\">\n        <md-input-container>\n          <button class=\"close\" color=\"primary\" md-mini-fab\n            (click)=\"close()\"\n          >\n            <md-icon>check</md-icon>\n          </button>\n    \n          <input type=\"text\"\n            mdInput\n            #keyboardInput\n            (click)=\"updateCaretPosition()\"\n            [(ngModel)]=\"inputElement.nativeElement.value\" placeholder=\"{{ placeholder }}\"\n            [maxLength]=\"maxLength\"\n          />\n        </md-input-container>\n    \n        <div fxLayout=\"row\" fxLayoutAlign=\"center center\"\n          *ngFor=\"let row of layout; let rowIndex = index\"\n          [attr.data-index]=\"rowIndex\"\n        >\n          <virtual-keyboard-key\n            *ngFor=\"let key of row; let keyIndex = index\"\n            [key]=\"key\"\n            [disabled]=\"disabled\"\n            [attr.data-index]=\"keyIndex\"\n            (keyPress)=\"keyPress($event)\"\n          ></virtual-keyboard-key>\n        </div>\n      </div>\n    </div>\n  ",
+            template: "\n    <div class=\"container\">\n      <div fxLayout=\"column\">\n        <md-input-container>\n          <button class=\"close\" color=\"primary\" md-mini-fab\n            (mouseup)=\"confirmDispatch()\"\n            tabindex=\"-1\"\n          >\n            <md-icon>check</md-icon>\n          </button>\n    \n          <input type=\"text\"\n            mdInput\n            #keyboardInput\n            (click)=\"updateCaretPosition()\"\n            [(ngModel)]=\"inputElement.nativeElement.value\" placeholder=\"{{ placeholder }}\"\n            [maxLength]=\"maxLength\"\n            autofocus\n            tabindex=\"1\"\n          />\n        </md-input-container>\n    \n        <div fxLayout=\"row\" fxLayoutAlign=\"center center\"\n          *ngFor=\"let row of layout; let rowIndex = index\"\n          [attr.data-index]=\"rowIndex\"\n        >\n          <virtual-keyboard-key\n            *ngFor=\"let key of row; let keyIndex = index\"\n            [key]=\"key\"\n            [disabled]=\"disabled\"\n            [attr.data-index]=\"keyIndex\"\n            (keyPress)=\"keyPress($event)\"\n          ></virtual-keyboard-key>\n        </div>\n      </div>\n    </div>\n  ",
             styles: ["\n    .close {\n      position: relative;\n      float: right;\n      top: -16px;\n      right: 0;\n      margin-bottom: -40px;\n    }\n  \n    .mat-input-container {\n      margin: -16px 0;\n      font-size: 32px;\n    }\n  \n    .mat-input-element:disabled {\n      color: currentColor;\n    }\n\n    :host /deep/ .mat-input-placeholder {\n      top: 10px !important;\n      font-size: 24px !important;\n    }\n  "]
         }),
         __metadata("design:paramtypes", [material_1.MdDialogRef,

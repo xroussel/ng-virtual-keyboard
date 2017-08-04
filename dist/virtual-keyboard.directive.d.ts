@@ -8,6 +8,7 @@ export declare class NgVirtualKeyboardDirective {
     private opened;
     private focus;
     dialogRef: MdDialogRef<VirtualKeyboardComponent>;
+    virtualKeyboardComponent: VirtualKeyboardComponent;
     layout: KeyboardLayout | string;
     placeholder: string;
     onWindowBlur(): void;

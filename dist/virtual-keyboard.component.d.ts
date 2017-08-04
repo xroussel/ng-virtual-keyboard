@@ -1,4 +1,4 @@
-import { ElementRef, OnDestroy, OnInit } from '@angular/core';
+import { ElementRef, OnDestroy, OnInit, EventEmitter } from '@angular/core';
 import { MdDialogRef } from '@angular/material';
 import { KeyboardLayout } from './layouts';
 import { VirtualKeyboardService } from './virtual-keyboard.service';
@@ -7,6 +7,7 @@ export declare class VirtualKeyboardComponent implements OnInit, OnDestroy {
     dialogRef: MdDialogRef<VirtualKeyboardComponent>;
     private virtualKeyboardService;
     keyboardInput: ElementRef;
+    confirm: EventEmitter<{}>;
     inputElement: ElementRef;
     layout: KeyboardLayout;
     placeholder: string;
@@ -49,6 +50,7 @@ export declare class VirtualKeyboardComponent implements OnInit, OnDestroy {
      * Method to close virtual keyboard dialog
      */
     close(): void;
+    private confirmDispatch();
     /**
      * Method to update caret position. This is called on click event in virtual keyboard input element.
      */

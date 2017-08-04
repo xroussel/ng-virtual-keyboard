@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild, EventEmitter, Output } from '@angular/core';
 import { MdDialogRef } from '@angular/material';
 
 import { keyboardCapsLockLayout, KeyboardLayout } from './layouts';
@@ -12,7 +12,8 @@ import { KeyPressInterface } from './key-press.interface';
       <div fxLayout="column">
         <md-input-container>
           <button class="close" color="primary" md-mini-fab
-            (click)="close()"
+            (mouseup)="confirmDispatch()"
+            tabindex="-1"
           >
             <md-icon>check</md-icon>
           </button>
@@ -23,6 +24,8 @@ import { KeyPressInterface } from './key-press.interface';
             (click)="updateCaretPosition()"
             [(ngModel)]="inputElement.nativeElement.value" placeholder="{{ placeholder }}"
             [maxLength]="maxLength"
+            autofocus
+            tabindex="1"
           />
         </md-input-container>
     
@@ -68,6 +71,7 @@ import { KeyPressInterface } from './key-press.interface';
 
 export class VirtualKeyboardComponent implements OnInit, OnDestroy {
   @ViewChild('keyboardInput') keyboardInput: ElementRef;
+  @Output() confirm = new EventEmitter() ;
 
   public inputElement: ElementRef;
   public layout: KeyboardLayout;
@@ -168,6 +172,11 @@ export class VirtualKeyboardComponent implements OnInit, OnDestroy {
    */
   public close(): void {
     this.dialogRef.close();
+  }
+
+  private confirmDispatch() {
+    this.confirm.emit() ;
+    this.dialogRef.close() ;
   }
 
   /**
