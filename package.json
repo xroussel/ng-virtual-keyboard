@@ -1,6 +1,6 @@
 {
   "name": "@xroussel/ng-virtual-keyboard",
-  "version": "0.6.2",
+  "version": "0.6.3",
   "description": "Virtual Keyboard for Angular applications",
   "main": "dist/ng-virtual-keyboard.umd.js",
   "module": "dist/index.js",
