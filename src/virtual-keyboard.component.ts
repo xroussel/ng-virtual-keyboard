@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild, EventEmitter, Output } from '@angular/core';
 import { MdDialogRef } from '@angular/material';
 
-import { keyboardCapsLockLayout, KeyboardLayout } from './layouts';
+import { keyboardCapsLockLayout, KeyboardLayout, keyboardAccentLayout } from './layouts';
 import { VirtualKeyboardService } from './virtual-keyboard.service';
 import { KeyPressInterface } from './key-press.interface';
 
@@ -75,6 +75,7 @@ export class VirtualKeyboardComponent implements OnInit, OnDestroy {
 
   public inputElement: ElementRef;
   public layout: KeyboardLayout;
+  public layoutStart: KeyboardLayout;
   public placeholder: string;
   public disabled: boolean;
   public maxLength: number|string;
@@ -129,6 +130,8 @@ export class VirtualKeyboardComponent implements OnInit, OnDestroy {
    *  3) Reset of possible previously tracked caret position
    */
   public ngOnInit(): void {
+	
+	this.layoutStart = this.layout;
     setTimeout(() => {
       this.keyboardInput.nativeElement.focus();
     }, 0);
@@ -139,7 +142,11 @@ export class VirtualKeyboardComponent implements OnInit, OnDestroy {
 
     this.virtualKeyboardService.capsLock$.subscribe((capsLock: boolean) => {
       this.layout = keyboardCapsLockLayout(this.layout, capsLock);
-    });
+	});
+	
+    this.virtualKeyboardService.accentLock$.subscribe((accent: boolean) => {
+		this.layout = keyboardAccentLayout(this.layoutStart, accent);
+	});
 
     this.virtualKeyboardService.caretPosition$.subscribe((caretPosition: number) => {
       this.caretPosition = caretPosition;
@@ -293,6 +300,9 @@ export class VirtualKeyboardComponent implements OnInit, OnDestroy {
         break;
       case 'CapsLock':
         this.virtualKeyboardService.toggleCapsLock();
+		break;
+	  case 'Accent':
+        this.virtualKeyboardService.toggleAccentLock();
         break;
       case 'Shift':
         this.virtualKeyboardService.toggleShift();

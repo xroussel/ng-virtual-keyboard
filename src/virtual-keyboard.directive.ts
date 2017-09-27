@@ -4,6 +4,8 @@ import { MdDialog, MdDialogRef } from '@angular/material';
 import { VirtualKeyboardComponent } from './virtual-keyboard.component';
 import {
   alphanumericKeyboard,
+  alphanumericKeyboardSwiss,
+  alphanumericKeyboardSwissAccent,
   alphanumericNordicKeyboard,
   extendedKeyboard,
   extendedNordicKeyboard,
@@ -96,6 +98,12 @@ export class NgVirtualKeyboardDirective {
     let layout;
 
     switch (this.layout) {
+	  case 'alphanumericSwiss':
+		layout = alphanumericKeyboardSwiss;
+		break;
+	  case 'alphanumericSwissAccent':
+		layout = alphanumericKeyboardSwissAccent;
+		break;
       case 'alphanumeric':
         layout = alphanumericKeyboard;
         break;
