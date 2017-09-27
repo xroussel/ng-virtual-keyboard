@@ -53,6 +53,7 @@ var NgVirtualKeyboardDirective = (function () {
             this.dialogRef.componentInstance.inputElement = this.element;
             this.dialogRef.componentInstance.layout = this.getLayout();
             this.dialogRef.componentInstance.placeholder = this.getPlaceHolder();
+            this.dialogRef.componentInstance.type = this.getType();
             this.dialogRef
                 .afterClosed()
                 .subscribe(function () {
@@ -113,6 +114,14 @@ var NgVirtualKeyboardDirective = (function () {
     NgVirtualKeyboardDirective.prototype.getPlaceHolder = function () {
         return this.placeholder ? this.placeholder : this.element.nativeElement.placeholder;
     };
+    /**
+     * Getter for used type for virtual keyboard input field.
+     *
+     * @returns {string}
+     */
+    NgVirtualKeyboardDirective.prototype.getType = function () {
+        return this.type ? this.type : this.element.nativeElement.type;
+    };
     return NgVirtualKeyboardDirective;
 }());
 __decorate([
@@ -123,6 +132,10 @@ __decorate([
     core_1.Input('ng-virtual-keyboard-placeholder'),
     __metadata("design:type", String)
 ], NgVirtualKeyboardDirective.prototype, "placeholder", void 0);
+__decorate([
+    core_1.Input('ng-virtual-keyboard-type'),
+    __metadata("design:type", String)
+], NgVirtualKeyboardDirective.prototype, "type", void 0);
 __decorate([
     core_1.HostListener('window:blur'),
     __metadata("design:type", Function),
