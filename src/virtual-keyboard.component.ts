@@ -18,7 +18,7 @@ import { KeyPressInterface } from './key-press.interface';
             <md-icon>check</md-icon>
           </button>
     
-          <input [type]="type"
+          <input type="{{ type }}"
             mdInput
             #keyboardInput
             (click)="updateCaretPosition()"
