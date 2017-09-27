@@ -18,7 +18,7 @@ import { KeyPressInterface } from './key-press.interface';
             <md-icon>check</md-icon>
           </button>
     
-          <input type="text"
+          <input [type]="type"
             mdInput
             #keyboardInput
             (click)="updateCaretPosition()"
@@ -79,9 +79,12 @@ export class VirtualKeyboardComponent implements OnInit, OnDestroy {
   public placeholder: string;
   public disabled: boolean;
   public maxLength: number|string;
+  public type:string;
 
   private caretPosition: number;
   private shift = false;
+
+  private password = false;
 
   /**
    * Helper method to set cursor in input to correct place.
