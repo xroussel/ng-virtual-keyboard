@@ -4,6 +4,8 @@ import { MdDialog, MdDialogRef } from '@angular/material';
 import { VirtualKeyboardComponent } from './virtual-keyboard.component';
 import {
   alphanumericKeyboard,
+  alphanumericKeyboardSwiss,
+  alphanumericKeyboardSwissAccent,
   alphanumericNordicKeyboard,
   extendedKeyboard,
   extendedNordicKeyboard,
@@ -24,6 +26,7 @@ export class NgVirtualKeyboardDirective {
 
   @Input('ng-virtual-keyboard-layout') layout: KeyboardLayout|string;
   @Input('ng-virtual-keyboard-placeholder') placeholder: string;
+  @Input('ng-virtual-keyboard-type') type: string;
 
   @HostListener('window:blur')
   onWindowBlur() {
@@ -69,7 +72,8 @@ export class NgVirtualKeyboardDirective {
       this.virtualKeyboardComponent = this.dialogRef.componentInstance ;
       this.dialogRef.componentInstance.inputElement = this.element;
       this.dialogRef.componentInstance.layout = this.getLayout();
-      this.dialogRef.componentInstance.placeholder = this.getPlaceHolder();
+	  this.dialogRef.componentInstance.placeholder = this.getPlaceHolder();
+	  this.dialogRef.componentInstance.type = this.getType();
 
       this.dialogRef
         .afterClosed()
@@ -96,6 +100,12 @@ export class NgVirtualKeyboardDirective {
     let layout;
 
     switch (this.layout) {
+	  case 'alphanumericSwiss':
+		layout = alphanumericKeyboardSwiss;
+		break;
+	  case 'alphanumericSwissAccent':
+		layout = alphanumericKeyboardSwissAccent;
+		break;
       case 'alphanumeric':
         layout = alphanumericKeyboard;
         break;
@@ -129,5 +139,14 @@ export class NgVirtualKeyboardDirective {
    */
   public getPlaceHolder(): string {
     return this.placeholder ? this.placeholder : this.element.nativeElement.placeholder;
+  }
+
+  /**
+   * Getter for used type for virtual keyboard input field.
+   *
+   * @returns {string}
+   */
+  public getType(): string {
+    return this.type ? this.type : this.element.nativeElement.type;
   }
 }

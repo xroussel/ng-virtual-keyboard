@@ -1,5 +1,17 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.alphanumericKeyboardSwiss = [
+    ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'Backspace:2'],
+    ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'CapsLock:2'],
+    ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'Spacer', 'Enter:2'],
+    ['z', 'x', 'c', 'v', 'b', 'n', 'm', 'Spacer:3', 'Accent:2'],
+];
+exports.alphanumericKeyboardSwissAccent = [
+    ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'Backspace:2'],
+    ['à', 'æ', 'ä', 'â', 'é', 'è', 'ë', 'ê', 'Spacer:2', 'CapsLock:2'],
+    ['ì', 'ï', 'î', 'ù', 'ü', 'û', 'ö', 'ò', 'ô', 'Spacer:1', 'Enter:2'],
+    ['Spacer:10', 'Accent:2'],
+];
 exports.alphanumericKeyboard = [
     ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'Backspace:2'],
     ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'CapsLock:2'],
@@ -46,6 +58,7 @@ exports.specialKeys = [
     'SpaceBar',
     'Spacer',
     'Shift',
+    'Accent'
 ];
 exports.specialKeyIcons = {
     Enter: 'keyboard_return',
@@ -55,7 +68,8 @@ exports.specialKeyIcons = {
     Shift: 'keyboard_capslock'
 };
 exports.specialKeyTexts = {
-    CapsLock: 'Caps'
+    CapsLock: 'Caps',
+    Accent: 'àé'
 };
 exports.notDisabledSpecialKeys = [
     'Enter',
@@ -106,4 +120,16 @@ function keyboardCapsLockLayout(layout, caps) {
     });
 }
 exports.keyboardCapsLockLayout = keyboardCapsLockLayout;
+/**
+ * Function to change specified layout to Accent layout.
+ *
+ * @param {KeyboardLayout}  layout
+ * @param {boolean}         accent
+ * @returns {KeyboardLayout}
+ */
+function keyboardAccentLayout(layout, accent) {
+    return accent ?
+        exports.alphanumericKeyboardSwissAccent : layout;
+}
+exports.keyboardAccentLayout = keyboardAccentLayout;
 //# sourceMappingURL=layouts.js.map

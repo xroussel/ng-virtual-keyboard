@@ -38,14 +38,16 @@ Simple usage example
   ng-virtual-keyboard
   ng-virtual-keyboard-layout="alphanumeric"
   ng-virtual-keyboard-placeholder="Custom placeholder text"
+  ng-virtual-keyboard-type="password"
 />
 ```
 
 | Attribute | Description |
 | --- | --- |
 | `ng-virtual-keyboard`             | Required to initialize Virtual Keyboard to specified input |
-| `ng-virtual-keyboard-layout`      | Used layout on keyboard, following keyboards are defaults that you can use `alphanumeric, alphanumericNordic, extended, extendedNordic, numeric, phone` |
+| `ng-virtual-keyboard-layout`      | Used layout on keyboard, following keyboards are defaults that you can use `alphanumeric, alphanumericSwiss, alphanumericNordic, extended, extendedNordic, numeric, phone` |
 | `ng-virtual-keyboard-placeholder` | Override placeholder text, if input has not any - or you want to override input placeholder value |
+| `ng-virtual-keyboard-type` | Override input type, text is default value |
 
 ## Demo
 https://protacon.github.io/ng-virtual-keyboard/
