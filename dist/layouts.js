@@ -2,9 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.alphanumericKeyboardSwiss = [
     ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'Backspace:2'],
-    ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'CapsLock:2'],
+    ['q', 'w', 'e', 'r', 't', 'z', 'u', 'i', 'o', 'p', 'CapsLock:2'],
     ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'Spacer', 'Enter:2'],
-    ['z', 'x', 'c', 'v', 'b', 'n', 'm', 'Spacer:3', 'Accent:2'],
+    ['y', 'x', 'c', 'v', 'b', 'n', 'm', 'Spacer:3', 'Accent:2'],
 ];
 exports.alphanumericKeyboardSwissAccent = [
     ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'Backspace:2'],
