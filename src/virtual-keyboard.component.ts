@@ -25,7 +25,8 @@ import { KeyPressInterface } from './key-press.interface';
             [(ngModel)]="inputElement.nativeElement.value" placeholder="{{ placeholder }}"
             [maxLength]="maxLength"
             autofocus
-            tabindex="1"
+			tabindex="1"
+			(keyup)="keyUp($event)"
           />
         </md-input-container>
     
@@ -273,7 +274,8 @@ export class VirtualKeyboardComponent implements OnInit, OnDestroy {
    */
   private handleSpecialKey(event: KeyPressInterface): void {
     switch (event.keyValue) {
-      case 'Enter':
+	  case 'Enter':
+		this.confirmDispatch()
         this.close();
         break;
       case 'Escape':
@@ -341,5 +343,11 @@ export class VirtualKeyboardComponent implements OnInit, OnDestroy {
 
     // And set focus to input
     this.keyboardInput.nativeElement.focus();
+  }
+
+  public keyUp($event) {
+	  if ($event.keyCode == 13) {
+		  this.confirmDispatch();
+	  }
   }
 }
