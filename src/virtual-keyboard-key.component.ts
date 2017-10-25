@@ -12,7 +12,8 @@ import { isSpacer, isSpecial, notDisabledSpecialKeys, specialKeyIcons, specialKe
       fxFlex="{{ flexValue }}"
       [class.spacer]="spacer"
       [disabled]="isDisabled()"
-      (click)="onKeyPress()"
+	  (click)="onKeyPress()"
+	  
     >
       <span *ngIf="!special">{{ keyValue }}</span>
     

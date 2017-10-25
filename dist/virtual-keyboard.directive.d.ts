@@ -12,6 +12,7 @@ export declare class NgVirtualKeyboardDirective {
     layout: KeyboardLayout | string;
     placeholder: string;
     type: string;
+    rcDisabled: boolean;
     onWindowBlur(): void;
     onWindowFocus(): void;
     onFocus(): void;
@@ -46,4 +47,10 @@ export declare class NgVirtualKeyboardDirective {
      * @returns {string}
      */
     getType(): string;
+    /**
+     * Getter for disabled right click
+     *
+     * @returns {boolean}
+     */
+    getRightClickDisabled(): boolean;
 }

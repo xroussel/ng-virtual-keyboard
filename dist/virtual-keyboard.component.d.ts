@@ -1,5 +1,6 @@
 import { ElementRef, OnDestroy, OnInit, EventEmitter } from '@angular/core';
 import { MdDialogRef } from '@angular/material';
+import { IShContextMenuItem, BeforeMenuEvent } from 'ng2-right-click-menu';
 import { KeyboardLayout } from './layouts';
 import { VirtualKeyboardService } from './virtual-keyboard.service';
 import { KeyPressInterface } from './key-press.interface';
@@ -15,9 +16,11 @@ export declare class VirtualKeyboardComponent implements OnInit, OnDestroy {
     disabled: boolean;
     maxLength: number | string;
     type: string;
+    noRightClick: boolean;
     private caretPosition;
     private shift;
     private password;
+    menuItems: IShContextMenuItem[];
     /**
      * Helper method to set cursor in input to correct place.
      *
@@ -49,6 +52,7 @@ export declare class VirtualKeyboardComponent implements OnInit, OnDestroy {
      *  - CapsLock
      */
     ngOnDestroy(): void;
+    onBefore($event: BeforeMenuEvent): void;
     /**
      * Method to close virtual keyboard dialog
      */

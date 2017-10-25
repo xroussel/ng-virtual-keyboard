@@ -27,6 +27,7 @@ export class NgVirtualKeyboardDirective {
   @Input('ng-virtual-keyboard-layout') layout: KeyboardLayout|string;
   @Input('ng-virtual-keyboard-placeholder') placeholder: string;
   @Input('ng-virtual-keyboard-type') type: string;
+  @Input('right-click-disabled') rcDisabled: boolean;
 
   @HostListener('window:blur')
   onWindowBlur() {
@@ -74,6 +75,7 @@ export class NgVirtualKeyboardDirective {
       this.dialogRef.componentInstance.layout = this.getLayout();
 	  this.dialogRef.componentInstance.placeholder = this.getPlaceHolder();
 	  this.dialogRef.componentInstance.type = this.getType();
+	  this.dialogRef.componentInstance.noRightClick = this.getRightClickDisabled();
 
       this.dialogRef
         .afterClosed()
@@ -148,5 +150,14 @@ export class NgVirtualKeyboardDirective {
    */
   public getType(): string {
     return this.type ? this.type : this.element.nativeElement.type;
+  }
+
+  /**
+   * Getter for disabled right click
+   *
+   * @returns {boolean}
+   */
+  public getRightClickDisabled(): boolean {
+    return this.rcDisabled;
   }
 }
