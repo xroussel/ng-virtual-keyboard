@@ -97,5 +97,6 @@ export declare class VirtualKeyboardComponent implements OnInit, OnDestroy {
      * @param {KeyPressInterface} event
      */
     private dispatchEvents(event);
-    keyUp($event: any): void;
+    keyUp($event: KeyboardEvent): void;
+    isNormalLetter(keycode: number): boolean;
 }
