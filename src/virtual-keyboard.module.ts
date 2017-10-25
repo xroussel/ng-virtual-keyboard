@@ -32,7 +32,7 @@ import { VirtualKeyboardService } from './virtual-keyboard.service';
     VirtualKeyboardComponent,
   ],
   exports: [
-    NgVirtualKeyboardDirective,
+    NgVirtualKeyboardDirective
   ]
 })
 

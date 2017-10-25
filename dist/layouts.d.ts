@@ -1,4 +1,6 @@
 export declare type KeyboardLayout = Array<Array<string>>;
+export declare const alphanumericKeyboardSwiss: KeyboardLayout;
+export declare const alphanumericKeyboardSwissAccent: KeyboardLayout;
 export declare const alphanumericKeyboard: KeyboardLayout;
 export declare const alphanumericNordicKeyboard: KeyboardLayout;
 export declare const extendedKeyboard: KeyboardLayout;
@@ -15,6 +17,7 @@ export declare const specialKeyIcons: {
 };
 export declare const specialKeyTexts: {
     CapsLock: string;
+    Accent: string;
 };
 export declare const notDisabledSpecialKeys: string[];
 /**
@@ -39,3 +42,11 @@ export declare function isSpecial(key: string): boolean;
  * @returns {KeyboardLayout}
  */
 export declare function keyboardCapsLockLayout(layout: KeyboardLayout, caps: boolean): KeyboardLayout;
+/**
+ * Function to change specified layout to Accent layout.
+ *
+ * @param {KeyboardLayout}  layout
+ * @param {boolean}         accent
+ * @returns {KeyboardLayout}
+ */
+export declare function keyboardAccentLayout(layout: KeyboardLayout, accent: boolean): KeyboardLayout;

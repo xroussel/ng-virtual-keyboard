@@ -42,7 +42,7 @@ import { KeyPressInterface } from './key-press.interface';
             (keyPress)="keyPress($event)"
           ></virtual-keyboard-key>
         </div>
-      </div>
+	  </div>
     </div>
   `,
   styles: [`
@@ -66,7 +66,30 @@ import { KeyPressInterface } from './key-press.interface';
     :host /deep/ .mat-input-placeholder {
       top: 10px !important;
       font-size: 24px !important;
-    }
+	}
+	/* fallback */
+	@font-face {
+	  font-family: 'Material Icons';
+	  font-style: normal;
+	  font-weight: 400;
+	  src: url(./font.woff2) format('woff2');
+	}
+	
+	.material-icons {
+	  font-family: 'Material Icons';
+	  font-weight: normal;
+	  font-style: normal;
+	  font-size: 24px;
+	  line-height: 1;
+	  letter-spacing: normal;
+	  text-transform: none;
+	  display: inline-block;
+	  white-space: nowrap;
+	  word-wrap: normal;
+	  direction: ltr;
+	  -webkit-font-feature-settings: 'liga';
+	  -webkit-font-smoothing: antialiased;
+	}
   `]
 })
 
