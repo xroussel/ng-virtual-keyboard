@@ -72,7 +72,7 @@ import { KeyPressInterface } from './key-press.interface';
 	  font-family: 'Material Icons';
 	  font-style: normal;
 	  font-weight: 400;
-	  src: url(./font.woff2) format('woff2');
+	  src: url(./assets/fonts/font.woff2) format('woff2');
 	}
 	
 	.material-icons {

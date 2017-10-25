@@ -46,7 +46,7 @@ import { isSpacer, isSpecial, notDisabledSpecialKeys, specialKeyIcons, specialKe
 	  font-family: 'Material Icons';
 	  font-style: normal;
 	  font-weight: 400;
-	  src: url(./font.woff2) format('woff2');
+	  src: url(./assets/fonts/font.woff2) format('woff2');
 	}
 	
 	.material-icons {
@@ -66,7 +66,7 @@ import { isSpacer, isSpecial, notDisabledSpecialKeys, specialKeyIcons, specialKe
 	}
   `]
 })
-
+//	  //src: url(https://fonts.gstatic.com/s/materialicons/v30/2fcrYFNaTjcS6g4U3t-Y5UEw0lE80llgEseQY3FEmqw.woff2) format('woff2');
 export class VirtualKeyboardKeyComponent implements OnInit {
   @Input() key: string;
   @Input() disabled: boolean;
