@@ -10,11 +10,14 @@ export declare class VirtualKeyboardComponent implements OnInit, OnDestroy {
     confirm: EventEmitter<{}>;
     inputElement: ElementRef;
     layout: KeyboardLayout;
+    layoutStart: KeyboardLayout;
     placeholder: string;
     disabled: boolean;
     maxLength: number | string;
+    type: string;
     private caretPosition;
     private shift;
+    private password;
     /**
      * Helper method to set cursor in input to correct place.
      *
@@ -94,4 +97,6 @@ export declare class VirtualKeyboardComponent implements OnInit, OnDestroy {
      * @param {KeyPressInterface} event
      */
     private dispatchEvents(event);
+    keyUp($event: KeyboardEvent): void;
+    isNormalLetter(keycode: number): boolean;
 }

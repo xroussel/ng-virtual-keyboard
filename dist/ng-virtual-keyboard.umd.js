@@ -89,6 +89,18 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_0__;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.alphanumericKeyboardSwiss = [
+    ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'Backspace:2'],
+    ['q', 'w', 'e', 'r', 't', 'z', 'u', 'i', 'o', 'p', 'CapsLock:2'],
+    ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'Spacer', 'Enter:2'],
+    ['y', 'x', 'c', 'v', 'b', 'n', 'm', 'Spacer:3', 'Accent:2'],
+];
+exports.alphanumericKeyboardSwissAccent = [
+    ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'Backspace:2'],
+    ['à', 'æ', 'ä', 'â', 'é', 'è', 'ë', 'ê', 'Spacer:2', 'CapsLock:2'],
+    ['ì', 'ï', 'î', 'ù', 'ü', 'û', 'ö', 'ò', 'ô', 'Spacer:1', 'Enter:2'],
+    ['Spacer:10', 'Accent:2'],
+];
 exports.alphanumericKeyboard = [
     ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'Backspace:2'],
     ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'CapsLock:2'],
@@ -135,6 +147,7 @@ exports.specialKeys = [
     'SpaceBar',
     'Spacer',
     'Shift',
+    'Accent'
 ];
 exports.specialKeyIcons = {
     Enter: 'keyboard_return',
@@ -144,7 +157,8 @@ exports.specialKeyIcons = {
     Shift: 'keyboard_capslock'
 };
 exports.specialKeyTexts = {
-    CapsLock: 'Caps'
+    CapsLock: 'Caps',
+    Accent: 'àé'
 };
 exports.notDisabledSpecialKeys = [
     'Enter',
@@ -195,6 +209,18 @@ function keyboardCapsLockLayout(layout, caps) {
     });
 }
 exports.keyboardCapsLockLayout = keyboardCapsLockLayout;
+/**
+ * Function to change specified layout to Accent layout.
+ *
+ * @param {KeyboardLayout}  layout
+ * @param {boolean}         accent
+ * @returns {KeyboardLayout}
+ */
+function keyboardAccentLayout(layout, accent) {
+    return accent ?
+        exports.alphanumericKeyboardSwissAccent : layout;
+}
+exports.keyboardAccentLayout = keyboardAccentLayout;
 
 
 /***/ }),
@@ -223,7 +249,7 @@ var core_1 = __webpack_require__(0);
 var material_1 = __webpack_require__(2);
 var virtual_keyboard_component_1 = __webpack_require__(4);
 var layouts_1 = __webpack_require__(1);
-var NgVirtualKeyboardDirective = (function () {
+var NgVirtualKeyboardDirective = /** @class */ (function () {
     /**
      * Constructor of the class.
      *
@@ -263,6 +289,7 @@ var NgVirtualKeyboardDirective = (function () {
             this.dialogRef.componentInstance.inputElement = this.element;
             this.dialogRef.componentInstance.layout = this.getLayout();
             this.dialogRef.componentInstance.placeholder = this.getPlaceHolder();
+            this.dialogRef.componentInstance.type = this.getType();
             this.dialogRef
                 .afterClosed()
                 .subscribe(function () {
@@ -285,6 +312,12 @@ var NgVirtualKeyboardDirective = (function () {
     NgVirtualKeyboardDirective.prototype.getLayout = function () {
         var layout;
         switch (this.layout) {
+            case 'alphanumericSwiss':
+                layout = layouts_1.alphanumericKeyboardSwiss;
+                break;
+            case 'alphanumericSwissAccent':
+                layout = layouts_1.alphanumericKeyboardSwissAccent;
+                break;
             case 'alphanumeric':
                 layout = layouts_1.alphanumericKeyboard;
                 break;
@@ -317,6 +350,14 @@ var NgVirtualKeyboardDirective = (function () {
     NgVirtualKeyboardDirective.prototype.getPlaceHolder = function () {
         return this.placeholder ? this.placeholder : this.element.nativeElement.placeholder;
     };
+    /**
+     * Getter for used type for virtual keyboard input field.
+     *
+     * @returns {string}
+     */
+    NgVirtualKeyboardDirective.prototype.getType = function () {
+        return this.type ? this.type : this.element.nativeElement.type;
+    };
     __decorate([
         core_1.Input('ng-virtual-keyboard-layout'),
         __metadata("design:type", Object)
@@ -325,6 +366,10 @@ var NgVirtualKeyboardDirective = (function () {
         core_1.Input('ng-virtual-keyboard-placeholder'),
         __metadata("design:type", String)
     ], NgVirtualKeyboardDirective.prototype, "placeholder", void 0);
+    __decorate([
+        core_1.Input('ng-virtual-keyboard-type'),
+        __metadata("design:type", String)
+    ], NgVirtualKeyboardDirective.prototype, "type", void 0);
     __decorate([
         core_1.HostListener('window:blur'),
         __metadata("design:type", Function),
@@ -381,7 +426,7 @@ var core_1 = __webpack_require__(0);
 var material_1 = __webpack_require__(2);
 var layouts_1 = __webpack_require__(1);
 var virtual_keyboard_service_1 = __webpack_require__(5);
-var VirtualKeyboardComponent = (function () {
+var VirtualKeyboardComponent = /** @class */ (function () {
     /**
      * Constructor of the class.
      *
@@ -393,6 +438,7 @@ var VirtualKeyboardComponent = (function () {
         this.virtualKeyboardService = virtualKeyboardService;
         this.confirm = new core_1.EventEmitter();
         this.shift = false;
+        this.password = false;
     }
     VirtualKeyboardComponent_1 = VirtualKeyboardComponent;
     /**
@@ -426,6 +472,7 @@ var VirtualKeyboardComponent = (function () {
      */
     VirtualKeyboardComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.layoutStart = this.layout;
         setTimeout(function () {
             _this.keyboardInput.nativeElement.focus();
         }, 0);
@@ -434,6 +481,9 @@ var VirtualKeyboardComponent = (function () {
         });
         this.virtualKeyboardService.capsLock$.subscribe(function (capsLock) {
             _this.layout = layouts_1.keyboardCapsLockLayout(_this.layout, capsLock);
+        });
+        this.virtualKeyboardService.accentLock$.subscribe(function (accent) {
+            _this.layout = layouts_1.keyboardAccentLayout(_this.layoutStart, accent);
         });
         this.virtualKeyboardService.caretPosition$.subscribe(function (caretPosition) {
             _this.caretPosition = caretPosition;
@@ -539,6 +589,7 @@ var VirtualKeyboardComponent = (function () {
     VirtualKeyboardComponent.prototype.handleSpecialKey = function (event) {
         switch (event.keyValue) {
             case 'Enter':
+                this.confirmDispatch();
                 this.close();
                 break;
             case 'Escape':
@@ -565,6 +616,9 @@ var VirtualKeyboardComponent = (function () {
                 break;
             case 'CapsLock':
                 this.virtualKeyboardService.toggleCapsLock();
+                break;
+            case 'Accent':
+                this.virtualKeyboardService.toggleAccentLock();
                 break;
             case 'Shift':
                 this.virtualKeyboardService.toggleShift();
@@ -598,6 +652,25 @@ var VirtualKeyboardComponent = (function () {
         // And set focus to input
         this.keyboardInput.nativeElement.focus();
     };
+    VirtualKeyboardComponent.prototype.keyUp = function ($event) {
+        var keyPressInterface = {
+            key: "" + $event.keyCode,
+            keyValue: $event.key,
+            special: !this.isNormalLetter($event.keyCode)
+        };
+        this.keyPress(keyPressInterface);
+        $event.preventDefault();
+    };
+    VirtualKeyboardComponent.prototype.isNormalLetter = function (keycode) {
+        return (keycode > 47 && keycode < 58) || // number keys
+            keycode == 32 || // spacebar key (if you want to allow carriage returns)
+            (keycode > 64 && keycode < 123) || // letter keys
+            (keycode > 95 && keycode < 112) || // numpad keys
+            (keycode > 185 && keycode < 193) || // ;=,-./` (in order)
+            (keycode > 218 && keycode < 234) ||
+            keycode == 252 || keycode == 163 ||
+            (keycode > 32 && keycode < 64);
+    };
     __decorate([
         core_1.ViewChild('keyboardInput'),
         __metadata("design:type", core_1.ElementRef)
@@ -609,8 +682,8 @@ var VirtualKeyboardComponent = (function () {
     VirtualKeyboardComponent = VirtualKeyboardComponent_1 = __decorate([
         core_1.Component({
             selector: 'virtual-keyboard',
-            template: "\n    <div class=\"container\">\n      <div fxLayout=\"column\">\n        <md-input-container>\n          <button class=\"close\" color=\"primary\" md-mini-fab\n            (mouseup)=\"confirmDispatch()\"\n            tabindex=\"-1\"\n          >\n            <md-icon>check</md-icon>\n          </button>\n    \n          <input type=\"text\"\n            mdInput\n            #keyboardInput\n            (click)=\"updateCaretPosition()\"\n            [(ngModel)]=\"inputElement.nativeElement.value\" placeholder=\"{{ placeholder }}\"\n            [maxLength]=\"maxLength\"\n            autofocus\n            tabindex=\"1\"\n          />\n        </md-input-container>\n    \n        <div fxLayout=\"row\" fxLayoutAlign=\"center center\"\n          *ngFor=\"let row of layout; let rowIndex = index\"\n          [attr.data-index]=\"rowIndex\"\n        >\n          <virtual-keyboard-key\n            *ngFor=\"let key of row; let keyIndex = index\"\n            [key]=\"key\"\n            [disabled]=\"disabled\"\n            [attr.data-index]=\"keyIndex\"\n            (keyPress)=\"keyPress($event)\"\n          ></virtual-keyboard-key>\n        </div>\n      </div>\n    </div>\n  ",
-            styles: ["\n    .close {\n      position: relative;\n      float: right;\n      top: -16px;\n      right: 0;\n      margin-bottom: -40px;\n    }\n  \n    .mat-input-container {\n      margin: -16px 0;\n      font-size: 32px;\n    }\n  \n    .mat-input-element:disabled {\n      color: currentColor;\n    }\n\n    :host /deep/ .mat-input-placeholder {\n      top: 10px !important;\n      font-size: 24px !important;\n    }\n  "]
+            template: "\n    <div class=\"container\">\n      <div fxLayout=\"column\">\n        <md-input-container>\n          <button class=\"close\" color=\"primary\" md-mini-fab\n            (mouseup)=\"confirmDispatch()\"\n            tabindex=\"-1\"\n          >\n            <md-icon>check</md-icon>\n          </button>\n    \n          <input type=\"{{ type }}\"\n            mdInput\n            #keyboardInput\n            (click)=\"updateCaretPosition()\"\n            [(ngModel)]=\"inputElement.nativeElement.value\" placeholder=\"{{ placeholder }}\"\n            [maxLength]=\"maxLength\"\n            autofocus\n\t\t\ttabindex=\"1\"\n\t\t\t(keypress)=\"keyUp($event)\"\n          />\n        </md-input-container>\n    \n        <div fxLayout=\"row\" fxLayoutAlign=\"center center\"\n          *ngFor=\"let row of layout; let rowIndex = index\"\n          [attr.data-index]=\"rowIndex\"\n        >\n          <virtual-keyboard-key\n            *ngFor=\"let key of row; let keyIndex = index\"\n            [key]=\"key\"\n            [disabled]=\"disabled\"\n            [attr.data-index]=\"keyIndex\"\n            (keyPress)=\"keyPress($event)\"\n          ></virtual-keyboard-key>\n        </div>\n\t  </div>\n    </div>\n  ",
+            styles: ["\n    .close {\n      position: relative;\n      float: right;\n      top: -16px;\n      right: 0;\n      margin-bottom: -40px;\n    }\n  \n    .mat-input-container {\n      margin: -16px 0;\n      font-size: 32px;\n    }\n  \n    .mat-input-element:disabled {\n      color: currentColor;\n    }\n\n    :host /deep/ .mat-input-placeholder {\n      top: 10px !important;\n      font-size: 24px !important;\n\t}\n\t/* fallback */\n\t@font-face {\n\t  font-family: 'Material Icons';\n\t  font-style: normal;\n\t  font-weight: 400;\n\t  src: url(./assets/fonts/font.woff2) format('woff2');\n\t}\n\t\n\t.material-icons {\n\t  font-family: 'Material Icons';\n\t  font-weight: normal;\n\t  font-style: normal;\n\t  font-size: 24px;\n\t  line-height: 1;\n\t  letter-spacing: normal;\n\t  text-transform: none;\n\t  display: inline-block;\n\t  white-space: nowrap;\n\t  word-wrap: normal;\n\t  direction: ltr;\n\t  -webkit-font-feature-settings: 'liga';\n\t  -webkit-font-smoothing: antialiased;\n\t}\n  "]
         }),
         __metadata("design:paramtypes", [material_1.MdDialogRef,
             virtual_keyboard_service_1.VirtualKeyboardService])
@@ -636,13 +709,15 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(0);
 var ReplaySubject_1 = __webpack_require__(12);
-var VirtualKeyboardService = (function () {
+var VirtualKeyboardService = /** @class */ (function () {
     function VirtualKeyboardService() {
         this.shift$ = new ReplaySubject_1.ReplaySubject(1);
         this.capsLock$ = new ReplaySubject_1.ReplaySubject(1);
+        this.accentLock$ = new ReplaySubject_1.ReplaySubject(1);
         this.caretPosition$ = new ReplaySubject_1.ReplaySubject(1);
         this.capsLock = false;
         this.shift = false;
+        this.accent = false;
     }
     /**
      * Setter for Shift value, note that this also sets CapsLock value.
@@ -664,6 +739,15 @@ var VirtualKeyboardService = (function () {
         this.capsLock$.next(value);
     };
     /**
+     * Setter for Accent value
+     *
+     * @param {boolean} value
+     */
+    VirtualKeyboardService.prototype.setAccent = function (value) {
+        this.accent = value;
+        this.accentLock$.next(value);
+    };
+    /**
      * Toggle for Shift, note that this also toggles CapsLock
      */
     VirtualKeyboardService.prototype.toggleShift = function () {
@@ -677,6 +761,13 @@ var VirtualKeyboardService = (function () {
     VirtualKeyboardService.prototype.toggleCapsLock = function () {
         this.capsLock = !this.capsLock;
         this.capsLock$.next(this.capsLock);
+    };
+    /**
+     * Toggle for Accent
+     */
+    VirtualKeyboardService.prototype.toggleAccentLock = function () {
+        this.accent = !this.accent;
+        this.accentLock$.next(this.accent);
     };
     /**
      * Setter for caret position value.
@@ -722,7 +813,7 @@ var virtual_keyboard_directive_1 = __webpack_require__(3);
 var virtual_keyboard_component_1 = __webpack_require__(4);
 var virtual_keyboard_key_component_1 = __webpack_require__(8);
 var virtual_keyboard_service_1 = __webpack_require__(5);
-var NgVirtualKeyboardModule = (function () {
+var NgVirtualKeyboardModule = /** @class */ (function () {
     function NgVirtualKeyboardModule() {
     }
     NgVirtualKeyboardModule = __decorate([
@@ -749,7 +840,7 @@ var NgVirtualKeyboardModule = (function () {
                 virtual_keyboard_component_1.VirtualKeyboardComponent,
             ],
             exports: [
-                virtual_keyboard_directive_1.NgVirtualKeyboardDirective,
+                virtual_keyboard_directive_1.NgVirtualKeyboardDirective
             ]
         })
     ], NgVirtualKeyboardModule);
@@ -789,7 +880,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(0);
 var layouts_1 = __webpack_require__(1);
-var VirtualKeyboardKeyComponent = (function () {
+var VirtualKeyboardKeyComponent = /** @class */ (function () {
     /**
      * Constructor of the class.
      */
@@ -870,8 +961,10 @@ var VirtualKeyboardKeyComponent = (function () {
         core_1.Component({
             selector: 'virtual-keyboard-key',
             template: "\n    <button\n      md-raised-button\n      color=\"primary\"\n      fxFlex=\"{{ flexValue }}\"\n      [class.spacer]=\"spacer\"\n      [disabled]=\"isDisabled()\"\n      (click)=\"onKeyPress()\"\n    >\n      <span *ngIf=\"!special\">{{ keyValue }}</span>\n    \n      <span *ngIf=\"special\">\n        <md-icon *ngIf=\"icon\">{{ icon }}</md-icon>\n    \n        {{ text }}\n      </span>\n    </button>\n  ",
-            styles: ["\n    .mat-button,\n    .mat-icon-button,\n    .mat-raised-button {\n      min-width: 64px;\n      min-height: 64px;\n      padding: 0;\n      margin: 2px;\n      font-size: 32px;\n      line-height: 32px;\n    }\n    \n    .mat-button.spacer,\n    .mat-icon-button.spacer,\n    .mat-raised-button.spacer {\n      background-color: transparent;\n    }\n  "]
-        }),
+            styles: ["\n    .mat-button,\n    .mat-icon-button,\n    .mat-raised-button {\n      min-width: 64px;\n      min-height: 64px;\n      padding: 0;\n      margin: 2px;\n      font-size: 32px;\n      line-height: 32px;\n    }\n    \n    .mat-button.spacer,\n    .mat-icon-button.spacer,\n    .mat-raised-button.spacer {\n      background-color: transparent;\n\t}\n\t\n\t/* fallback */\n\t@font-face {\n\t  font-family: 'Material Icons';\n\t  font-style: normal;\n\t  font-weight: 400;\n\t  src: url(./assets/fonts/font.woff2) format('woff2');\n\t}\n\t\n\t.material-icons {\n\t  font-family: 'Material Icons';\n\t  font-weight: normal;\n\t  font-style: normal;\n\t  font-size: 24px;\n\t  line-height: 1;\n\t  letter-spacing: normal;\n\t  text-transform: none;\n\t  display: inline-block;\n\t  white-space: nowrap;\n\t  word-wrap: normal;\n\t  direction: ltr;\n\t  -webkit-font-feature-settings: 'liga';\n\t  -webkit-font-smoothing: antialiased;\n\t}\n  "]
+        })
+        //	  //src: url(https://fonts.gstatic.com/s/materialicons/v30/2fcrYFNaTjcS6g4U3t-Y5UEw0lE80llgEseQY3FEmqw.woff2) format('woff2');
+        ,
         __metadata("design:paramtypes", [])
     ], VirtualKeyboardKeyComponent);
     return VirtualKeyboardKeyComponent;
