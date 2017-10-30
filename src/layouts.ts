@@ -5,6 +5,7 @@ export const alphanumericKeyboardSwiss: KeyboardLayout = [
 	['q', 'w', 'e', 'r', 't', 'z', 'u', 'i', 'o', 'p', 'CapsLock:2'],
 	['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'Spacer', 'Enter:2'],
 	['y', 'x', 'c', 'v', 'b', 'n', 'm', 'Spacer:3', 'Accent:2'],
+	['SpaceBar:12']
 ];
 
 export const alphanumericKeyboardSwissAccent: KeyboardLayout = [
