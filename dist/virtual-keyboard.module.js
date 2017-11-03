@@ -5,6 +5,7 @@ var common_1 = require("@angular/common");
 var forms_1 = require("@angular/forms");
 var material_1 = require("@angular/material");
 var flex_layout_1 = require("@angular/flex-layout");
+var ng2_right_click_menu_1 = require("ng2-right-click-menu");
 var virtual_keyboard_directive_1 = require("./virtual-keyboard.directive");
 var virtual_keyboard_component_1 = require("./virtual-keyboard.component");
 var virtual_keyboard_key_component_1 = require("./virtual-keyboard-key.component");
@@ -31,6 +32,7 @@ var NgVirtualKeyboardModule = /** @class */ (function () {
                         material_1.MdDialogModule,
                         material_1.MdIconModule,
                         material_1.MdInputModule,
+                        ng2_right_click_menu_1.ShContextMenuModule
                     ],
                     entryComponents: [
                         virtual_keyboard_component_1.VirtualKeyboardComponent,

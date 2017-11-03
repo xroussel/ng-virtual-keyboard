@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild, EventEmitter, Output } from '@angular/core';
 import { MdDialogRef } from '@angular/material';
+import { IShContextMenuItem, BeforeMenuEvent } from 'ng2-right-click-menu';
 
 import { keyboardCapsLockLayout, KeyboardLayout, keyboardAccentLayout } from './layouts';
 import { VirtualKeyboardService } from './virtual-keyboard.service';
@@ -8,7 +9,7 @@ import { KeyPressInterface } from './key-press.interface';
 @Component({
 	selector: 'virtual-keyboard',
 	template: `
-    <div class="container">
+    <div class="container test" (onBeforeMenuOpen)="onBefore($event)" [sh-context]="menuItems">
       <div fxLayout="column">
         <md-input-container>
           <button class="close" color="primary" md-mini-fab
@@ -104,11 +105,13 @@ export class VirtualKeyboardComponent implements OnInit, OnDestroy {
 	public disabled: boolean;
 	public maxLength: number | string;
 	public type: string;
+	public noRightClick: boolean;
 
 	private caretPosition: number;
 	private shift = false;
 
 	private password = false;
+	menuItems:IShContextMenuItem[] ;
 
 	/**
 	 * Helper method to set cursor in input to correct place.
@@ -158,6 +161,8 @@ export class VirtualKeyboardComponent implements OnInit, OnDestroy {
 	 */
 	public ngOnInit(): void {
 
+		this.menuItems = [
+		];
 		this.layoutStart = this.layout;
 		setTimeout(() => {
 			this.keyboardInput.nativeElement.focus();
@@ -199,6 +204,17 @@ export class VirtualKeyboardComponent implements OnInit, OnDestroy {
 	 */
 	public ngOnDestroy(): void {
 		this.virtualKeyboardService.reset();
+	}
+
+	public onBefore($event: BeforeMenuEvent) {
+		console.log("clicked");
+		if (this.noRightClick) {
+			console.log("no right");
+			$event.event.preventDefault();
+		} else {
+			$event.open();
+		}
+		
 	}
 
 	/**
