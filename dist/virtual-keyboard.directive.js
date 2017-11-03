@@ -45,6 +45,7 @@ var NgVirtualKeyboardDirective = /** @class */ (function () {
             this.dialogRef.componentInstance.layout = this.getLayout();
             this.dialogRef.componentInstance.placeholder = this.getPlaceHolder();
             this.dialogRef.componentInstance.type = this.getType();
+            this.dialogRef.componentInstance.noRightClick = this.getRightClickDisabled();
             this.dialogRef
                 .afterClosed()
                 .subscribe(function () {
@@ -113,6 +114,14 @@ var NgVirtualKeyboardDirective = /** @class */ (function () {
     NgVirtualKeyboardDirective.prototype.getType = function () {
         return this.type ? this.type : this.element.nativeElement.type;
     };
+    /**
+     * Getter for disabled right click
+     *
+     * @returns {boolean}
+     */
+    NgVirtualKeyboardDirective.prototype.getRightClickDisabled = function () {
+        return this.rcDisabled;
+    };
     NgVirtualKeyboardDirective.decorators = [
         { type: core_1.Directive, args: [{
                     selector: '[ng-virtual-keyboard]'
@@ -127,6 +136,7 @@ var NgVirtualKeyboardDirective = /** @class */ (function () {
         'layout': [{ type: core_1.Input, args: ['ng-virtual-keyboard-layout',] },],
         'placeholder': [{ type: core_1.Input, args: ['ng-virtual-keyboard-placeholder',] },],
         'type': [{ type: core_1.Input, args: ['ng-virtual-keyboard-type',] },],
+        'rcDisabled': [{ type: core_1.Input, args: ['right-click-disabled',] },],
         'onWindowBlur': [{ type: core_1.HostListener, args: ['window:blur',] },],
         'onWindowFocus': [{ type: core_1.HostListener, args: ['window:focus',] },],
         'onFocus': [{ type: core_1.HostListener, args: ['focus',] },],
