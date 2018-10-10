@@ -84,9 +84,7 @@ var VirtualKeyboardComponent = /** @class */ (function () {
         this.virtualKeyboardService.reset();
     };
     VirtualKeyboardComponent.prototype.onBefore = function ($event) {
-        console.log("clicked");
         if (this.noRightClick) {
-            console.log("no right");
             $event.event.preventDefault();
         }
         else {
