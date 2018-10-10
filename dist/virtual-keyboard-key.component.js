@@ -41,7 +41,7 @@ var VirtualKeyboardKeyComponent = /** @class */ (function () {
             switch (this.keyValue) {
                 case "Backspace":
                     if (this.isIE) {
-                        this.text = "Space";
+                        this.text = "Del";
                     }
                     else {
                         this.icon = layouts_1.specialKeyIcons.Backspace;

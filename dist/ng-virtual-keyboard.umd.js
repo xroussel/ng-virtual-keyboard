@@ -804,9 +804,7 @@ var VirtualKeyboardComponent = /** @class */ (function () {
         this.virtualKeyboardService.reset();
     };
     VirtualKeyboardComponent.prototype.onBefore = function ($event) {
-        console.log("clicked");
         if (this.noRightClick) {
-            console.log("no right");
             $event.event.preventDefault();
         }
         else {
@@ -1553,7 +1551,7 @@ var VirtualKeyboardKeyComponent = /** @class */ (function () {
             switch (this.keyValue) {
                 case "Backspace":
                     if (this.isIE) {
-                        this.text = "Space";
+                        this.text = "Del";
                     }
                     else {
                         this.icon = layouts_1.specialKeyIcons.Backspace;

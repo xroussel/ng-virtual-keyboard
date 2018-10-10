@@ -123,7 +123,7 @@ export class VirtualKeyboardKeyComponent implements OnInit {
 			switch (this.keyValue) {
 				case "Backspace":
 					if(this.isIE) {
-						this.text = "Space";
+						this.text = "Del";
 					} else {
 						this.icon = specialKeyIcons.Backspace;
 					}
