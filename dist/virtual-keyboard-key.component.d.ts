@@ -10,6 +10,7 @@ export declare class VirtualKeyboardKeyComponent implements OnInit {
     keyValue: string;
     icon: string;
     text: string;
+    isIE: boolean;
     /**
      * Constructor of the class.
      */

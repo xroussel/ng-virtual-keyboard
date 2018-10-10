@@ -4,8 +4,8 @@ import { KeyPressInterface } from './key-press.interface';
 import { isSpacer, isSpecial, notDisabledSpecialKeys, specialKeyIcons, specialKeyTexts } from './layouts';
 
 @Component({
-  selector: 'virtual-keyboard-key',
-  template: `
+	selector: 'virtual-keyboard-key',
+	template: `
     <button
       md-raised-button
       color="primary"
@@ -18,13 +18,13 @@ import { isSpacer, isSpecial, notDisabledSpecialKeys, specialKeyIcons, specialKe
       <span *ngIf="!special">{{ keyValue }}</span>
     
       <span *ngIf="special">
-        <md-icon *ngIf="icon">{{ icon }}</md-icon>
+        <md-icon  style="font-feature-settings: 'liga';" *ngIf="icon">{{ icon }}</md-icon>
     
         {{ text }}
       </span>
     </button>
   `,
-  styles: [`
+	styles: [`
     .mat-button,
     .mat-icon-button,
     .mat-raised-button {
@@ -69,80 +69,126 @@ import { isSpacer, isSpecial, notDisabledSpecialKeys, specialKeyIcons, specialKe
 })
 //	  //src: url(https://fonts.gstatic.com/s/materialicons/v30/2fcrYFNaTjcS6g4U3t-Y5UEw0lE80llgEseQY3FEmqw.woff2) format('woff2');
 export class VirtualKeyboardKeyComponent implements OnInit {
-  @Input() key: string;
-  @Input() disabled: boolean;
-  @Output() keyPress = new EventEmitter<KeyPressInterface>();
+	@Input() key: string;
+	@Input() disabled: boolean;
+	@Output() keyPress = new EventEmitter<KeyPressInterface>();
 
-  public special = false;
-  public spacer = false;
-  public flexValue: string;
-  public keyValue: string;
-  public icon: string;
-  public text: string;
+	public special = false;
+	public spacer = false;
+	public flexValue: string;
+	public keyValue: string;
+	public icon: string;
+	public text: string;
+	isIE: boolean;
 
-  /**
-   * Constructor of the class.
-   */
-  public constructor() { }
+	/**
+	 * Constructor of the class.
+	 */
+	public constructor() { }
 
-  /**
-   * On init life cycle hook, within this we'll initialize following properties:
-   *  - special
-   *  - keyValue
-   *  - flexValue
-   */
-  public ngOnInit(): void {
-    let multiplier = 1;
-    let fix = 0;
+	/**
+	 * On init life cycle hook, within this we'll initialize following properties:
+	 *  - special
+	 *  - keyValue
+	 *  - flexValue
+	 */
+	public ngOnInit(): void {
+		let multiplier = 1;
+		let fix = 0;
+		this.isIE = /msie\s|trident\/|notedge\//i.test(window.navigator.userAgent);
 
-    if (this.key.length > 1) {
-      this.spacer = isSpacer(this.key);
-      this.special = isSpecial(this.key);
+		if (this.key.length > 1) {
+			this.spacer = isSpacer(this.key);
+			this.special = isSpecial(this.key);
 
-      const matches = /^(\w+)(:(\d+(\.\d+)?))?$/g.exec(this.key);
+			const matches = /^(\w+)(:(\d+(\.\d+)?))?$/g.exec(this.key);
 
-      this.keyValue = matches[1];
+			this.keyValue = matches[1];
 
-      if (matches[3]) {
-        multiplier = parseFloat(matches[3]);
-        fix = (multiplier - 1) * 4;
-      }
-    } else {
-      this.keyValue = this.key;
-    }
+			if (matches[3]) {
+				multiplier = parseFloat(matches[3]);
+				fix = (multiplier - 1) * 4;
+			}
+		} else {
+			this.keyValue = this.key;
+		}
 
-    if (this.special) {
-      if (specialKeyIcons.hasOwnProperty(this.keyValue)) {
-        this.icon = specialKeyIcons[this.keyValue];
-      } else if (specialKeyTexts.hasOwnProperty(this.keyValue)) {
-        this.text = specialKeyTexts[this.keyValue];
-      }
-    }
+		console.log(this.keyValue);
+		console.log(this.special);
 
-    this.flexValue = `${multiplier * 64 + fix}px`;
-  }
+		if (this.special) {
 
-  /**
-   * Method to check if key is disabled or not.
-   *
-   * @returns {boolean}
-   */
-  public isDisabled(): boolean {
-    if (this.spacer) {
-      return true;
-    } else if (this.disabled && notDisabledSpecialKeys.indexOf(this.keyValue) !== -1) {
-      return false;
-    } else {
-      return this.disabled;
-    }
-  }
 
-  /**
-   * Method to handle actual "key" press from virtual keyboard.
-   *  1) Key is "Special", process special key event
-   *  2) Key is "Normal", append this key value to input
-   */
-  public onKeyPress(): void {
-    this.keyPress.emit({special: this.special, keyValue: this.keyValue, key: this.key});
-  }
+
+			switch (this.keyValue) {
+				case "Backspace":
+					if(this.isIE) {
+						this.text = "Space";
+					} else {
+						this.icon = specialKeyIcons.Backspace;
+					}
+					break;
+				case "Enter":
+					if(this.isIE) {
+						this.text = "Enter";
+					} else {
+						this.icon = specialKeyIcons.Enter;
+					}
+					break;
+				case "Escape":
+					if(this.isIE) {
+						this.text = "Escape";
+					} else {
+						this.icon = specialKeyIcons.Escape;
+					}
+					break;
+				case "Shift":
+					if(this.isIE) {
+						this.text = "Shift";
+					} else {
+						this.icon = specialKeyIcons.Shift;
+					}
+					break;
+				case "SpaceBar":
+					if(this.isIE) {
+						this.text = "Space";
+					} else {
+						this.icon = specialKeyIcons.SpaceBar;
+					}
+					break;
+				case "CapsLock":
+					this.text = specialKeyTexts.CapsLock;
+					break;
+				case "Accent":
+					this.text = specialKeyTexts.Accent;
+					break;
+			}
+		}
+
+		this.flexValue = `${multiplier * 64 + fix}px`;
+	}
+
+	/**
+	 * Method to check if key is disabled or not.
+	 *
+	 * @returns {boolean}
+	 */
+	public isDisabled(): boolean {
+		if (this.spacer) {
+			return true;
+		} else if (this.disabled && notDisabledSpecialKeys.indexOf(this.keyValue) !== -1) {
+			return false;
+		} else {
+			return this.disabled;
+		}
+	}
+
+	/**
+	 * Method to handle actual "key" press from virtual keyboard.
+	 *  1) Key is "Special", process special key event
+	 *  2) Key is "Normal", append this key value to input
+	 */
+	public onKeyPress(): void {
+		this.keyPress.emit({ special: this.special, keyValue: this.keyValue, key: this.key });
+	}
 }
