@@ -5,6 +5,7 @@ html, body {
   padding: .5em 1em;
   font-family: Roboto, "Helvetica Neue", sans-serif;
   flex: 1;
+  font-feature-settings: 'liga';
 }
 
 h1, h2, h3, h4, p {
@@ -38,3 +39,4 @@ pre {
     margin-right: .38em;
   }
 }
+

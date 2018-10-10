@@ -232,13 +232,27 @@ var VirtualKeyboardComponent = /** @class */ (function () {
             code: "Key" + event.keyValue.toUpperCase() + "}",
             location: 0
         };
+        // let event2 = document.createEvent("KeyboardEvent");
+        // event2.initEvent("keydown", true, true);
+        // //event2.
+        // // args: string type, boolean bubbles, boolean cancelable
+        // this.inputElement.nativeElement.dispatchEvent(event);
         // Simulate all needed events on base element
-        this.inputElement.nativeElement.dispatchEvent(new KeyboardEvent('keydown', eventInit));
-        this.inputElement.nativeElement.dispatchEvent(new KeyboardEvent('keypress', eventInit));
-        this.inputElement.nativeElement.dispatchEvent(new Event('input', { bubbles: true }));
-        this.inputElement.nativeElement.dispatchEvent(new KeyboardEvent('keyup', eventInit));
+        // this.inputElement.nativeElement.dispatchEvent(new KeyboardEvent('keydown', eventInit));
+        // this.inputElement.nativeElement.dispatchEvent(new KeyboardEvent('keypress', eventInit));
+        // this.inputElement.nativeElement.dispatchEvent(new Event('input', { bubbles: true }));
+        // this.inputElement.nativeElement.dispatchEvent(new KeyboardEvent('keyup', eventInit));
+        this.dispatchEvent("KeyboardEvent", 'keydown', eventInit);
+        this.dispatchEvent("KeyboardEvent", 'keypress', eventInit);
+        this.dispatchEvent("Event", 'input', { bubbles: true });
+        this.dispatchEvent("KeyboardEvent", 'keyup', eventInit);
         // And set focus to input
         this.keyboardInput.nativeElement.focus();
+    };
+    VirtualKeyboardComponent.prototype.dispatchEvent = function (name, type, eventInit) {
+        var event = document.createEvent(name);
+        event.initEvent(type, eventInit.bubbles, eventInit.cancelable);
+        this.inputElement.nativeElement.dispatchEvent(event);
     };
     VirtualKeyboardComponent.prototype.keyUp = function ($event) {
         var keyPressInterface = {

@@ -1,6 +1,6 @@
 {
   "name": "@xroussel/ng-virtual-keyboard",
-  "version": "0.6.6",
+  "version": "0.6.7",
   "description": "Virtual Keyboard for Angular applications",
   "main": "dist/ng-virtual-keyboard.umd.js",
   "module": "dist/index.js",
@@ -63,6 +63,6 @@
     "typescript": "^2.2.2",
     "webpack": "^2.3.3",
     "webpack-dev-server": "^2.4.2",
-    "zone.js": "^0.8.5"
+    "zone.js": "0.8.4"
   }
 }
