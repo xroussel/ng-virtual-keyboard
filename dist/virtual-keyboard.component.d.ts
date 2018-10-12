@@ -21,6 +21,7 @@ export declare class VirtualKeyboardComponent implements OnInit, OnDestroy {
     private shift;
     private password;
     menuItems: IShContextMenuItem[];
+    isIE: boolean;
     /**
      * Helper method to set cursor in input to correct place.
      *
