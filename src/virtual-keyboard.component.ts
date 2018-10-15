@@ -16,7 +16,8 @@ import { KeyPressInterface } from './key-press.interface';
             (mouseup)="confirmDispatch()"
             tabindex="-1"
           >
-            <md-icon>check</md-icon>
+			<md-icon *ngIf="!isIE">check</md-icon>
+			<span *ngIf="isIE">OK</span>
           </button>
     
           <input type="{{ type }}"
@@ -112,6 +113,7 @@ export class VirtualKeyboardComponent implements OnInit, OnDestroy {
 
 	private password = false;
 	menuItems:IShContextMenuItem[] ;
+	isIE: boolean;
 
 	/**
 	 * Helper method to set cursor in input to correct place.
@@ -161,6 +163,7 @@ export class VirtualKeyboardComponent implements OnInit, OnDestroy {
 	 */
 	public ngOnInit(): void {
 
+		this.isIE = /msie\s|trident\/|notedge\//i.test(window.navigator.userAgent);
 		this.menuItems = [
 		];
 		this.layoutStart = this.layout;

@@ -113,9 +113,6 @@ export class VirtualKeyboardKeyComponent implements OnInit {
 			this.keyValue = this.key;
 		}
 
-		console.log(this.keyValue);
-		console.log(this.special);
-
 		if (this.special) {
 
 
