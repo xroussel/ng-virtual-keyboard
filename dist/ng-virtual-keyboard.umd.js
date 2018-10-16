@@ -212,7 +212,7 @@ ShContextMenuComponent.propDecorators = {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.alphanumericKeyboardSwiss = [
     ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'Backspace:2'],
-    ['q', 'w', 'e', 'r', 't', 'z', 'u', 'i', 'o', 'p', 'CapsLock:2'],
+    ['qq', 'w', 'e', 'r', 't', 'z', 'u', 'i', 'o', 'p', 'CapsLock:2'],
     ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'Spacer', 'Enter:2'],
     ['y', 'x', 'c', 'v', 'b', 'n', 'm', 'Spacer:3', 'Accent:2'],
 ];
@@ -224,26 +224,26 @@ exports.alphanumericKeyboardSwissAccent = [
 ];
 exports.alphanumericKeyboard = [
     ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'Backspace:2'],
-    ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'CapsLock:2'],
+    ['qq', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'CapsLock:2'],
     ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'Spacer', 'Shift:2'],
     ['z', 'x', 'c', 'v', 'b', 'n', 'm', 'Spacer:5'],
 ];
 exports.alphanumericNordicKeyboard = [
     ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'Spacer', 'Backspace:2'],
-    ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'å', 'CapsLock:2'],
+    ['qq', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'å', 'CapsLock:2'],
     ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'ö', 'ä', 'Shift:2'],
     ['z', 'x', 'c', 'v', 'b', 'n', 'm', 'Spacer:6'],
 ];
 exports.extendedKeyboard = [
     ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'Backspace:2'],
-    ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'CapsLock:2'],
+    ['qq', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'CapsLock:2'],
     ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'Spacer', 'Shift:2'],
     ['z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '-', '_', '+'],
     ['Spacer', '@', 'SpaceBar:7', '#', 'Spacer:2'],
 ];
 exports.extendedNordicKeyboard = [
     ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '+', 'Backspace:2'],
-    ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'å', 'CapsLock:2'],
+    ['qq', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'å', 'CapsLock:2'],
     ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'ö', 'ä', 'Shift:2'],
     ['z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '-', '_', 'Spacer:2'],
     ['Spacer', '@', 'SpaceBar:7', '#', 'Spacer:3'],
@@ -266,6 +266,7 @@ exports.specialKeys = [
     'Escape',
     'CapsLock',
     'SpaceBar',
+    'Spacebar',
     'Spacer',
     'Shift',
     'Accent'
@@ -893,6 +894,7 @@ var VirtualKeyboardComponent = /** @class */ (function () {
      *  5) SpaceBar
      */
     VirtualKeyboardComponent.prototype.handleSpecialKey = function (event) {
+        console.log(event.keyValue);
         switch (event.keyValue) {
             case 'Enter':
                 this.confirmDispatch();
@@ -930,6 +932,7 @@ var VirtualKeyboardComponent = /** @class */ (function () {
                 this.virtualKeyboardService.toggleShift();
                 break;
             case 'SpaceBar':
+            case 'Spacebar':
                 this.handleNormalKey(' ');
                 break;
         }
@@ -973,11 +976,20 @@ var VirtualKeyboardComponent = /** @class */ (function () {
         this.inputElement.nativeElement.dispatchEvent(event);
     };
     VirtualKeyboardComponent.prototype.keyUp = function ($event) {
+        console.log($event.keyCode);
+        /*
+        Fix IE
+        */
+        var keyvalue = $event.key;
+        if ($event.key == "Spacebar" || $event.key == "SpaceBar") {
+            keyvalue = ' ';
+        }
         var keyPressInterface = {
             key: "" + $event.keyCode,
-            keyValue: $event.key,
+            keyValue: keyvalue,
             special: !this.isNormalLetter($event.keyCode)
         };
+        console.log(keyPressInterface);
         this.keyPress(keyPressInterface);
         $event.preventDefault();
     };
@@ -1002,7 +1014,7 @@ var VirtualKeyboardComponent = /** @class */ (function () {
     VirtualKeyboardComponent = VirtualKeyboardComponent_1 = __decorate([
         core_1.Component({
             selector: 'virtual-keyboard',
-            template: "\n    <div class=\"container test\" (onBeforeMenuOpen)=\"onBefore($event)\" [sh-context]=\"menuItems\">\n      <div fxLayout=\"column\">\n        <md-input-container>\n          <button class=\"close\" color=\"primary\" md-mini-fab\n            (mouseup)=\"confirmDispatch()\"\n            tabindex=\"-1\"\n          >\n\t\t\t<md-icon *ngIf=\"!isIE\">check</md-icon>\n\t\t\t<span *ngIf=\"isIE\">OK</span>\n          </button>\n    \n          <input type=\"{{ type }}\"\n            mdInput\n            #keyboardInput\n            (click)=\"updateCaretPosition()\"\n            [(ngModel)]=\"inputElement.nativeElement.value\" placeholder=\"{{ placeholder }}\"\n            [maxLength]=\"maxLength\"\n            autofocus\n\t\t\ttabindex=\"1\"\n\t\t\t(keypress)=\"keyUp($event)\"\n          />\n        </md-input-container>\n    \n        <div fxLayout=\"row\" fxLayoutAlign=\"center center\"\n          *ngFor=\"let row of layout; let rowIndex = index\"\n          [attr.data-index]=\"rowIndex\"\n        >\n          <virtual-keyboard-key\n            *ngFor=\"let key of row; let keyIndex = index\"\n            [key]=\"key\"\n            [disabled]=\"disabled\"\n            [attr.data-index]=\"keyIndex\"\n            (keyPress)=\"keyPress($event)\"\n          ></virtual-keyboard-key>\n        </div>\n\t  </div>\n    </div>\n  ",
+            template: "\n    <div class=\"container test\" (onBeforeMenuOpen)=\"onBefore($event)\" [sh-context]=\"menuItems\">\n      <div fxLayout=\"column\">\n        <md-input-container>\n          <button class=\"close\" color=\"primary\" md-mini-fab\n            (mouseup)=\"confirmDispatch()\"\n            tabindex=\"-1\"\n          >\n\t\t\t<md-icon *ngIf=\"!isIE\">check</md-icon>\n\t\t\t<span *ngIf=\"isIE\"></span>\n          </button>\n    \n          <input type=\"{{ type }}\"\n            mdInput\n            #keyboardInput\n            (click)=\"updateCaretPosition()\"\n            [(ngModel)]=\"inputElement.nativeElement.value\" placeholder=\"{{ placeholder }}\"\n            [maxLength]=\"maxLength\"\n            autofocus\n\t\t\ttabindex=\"1\"\n\t\t\t(keypress)=\"keyUp($event)\"\n          />\n        </md-input-container>\n    \n        <div fxLayout=\"row\" fxLayoutAlign=\"center center\"\n          *ngFor=\"let row of layout; let rowIndex = index\"\n          [attr.data-index]=\"rowIndex\"\n        >\n          <virtual-keyboard-key\n            *ngFor=\"let key of row; let keyIndex = index\"\n            [key]=\"key\"\n            [disabled]=\"disabled\"\n            [attr.data-index]=\"keyIndex\"\n            (keyPress)=\"keyPress($event)\"\n          ></virtual-keyboard-key>\n        </div>\n\t  </div>\n    </div>\n  ",
             styles: ["\n    .close {\n      position: relative;\n      float: right;\n      top: -16px;\n      right: 0;\n      margin-bottom: -40px;\n    }\n  \n    .mat-input-container {\n      margin: -16px 0;\n      font-size: 32px;\n    }\n  \n    .mat-input-element:disabled {\n      color: currentColor;\n    }\n\n    :host /deep/ .mat-input-placeholder {\n      top: 10px !important;\n      font-size: 24px !important;\n\t}\n\t/* fallback */\n\t@font-face {\n\t  font-family: 'Material Icons';\n\t  font-style: normal;\n\t  font-weight: 400;\n\t  src: url(./assets/fonts/font.woff2) format('woff2');\n\t}\n\t\n\t.material-icons {\n\t  font-family: 'Material Icons';\n\t  font-weight: normal;\n\t  font-style: normal;\n\t  font-size: 24px;\n\t  line-height: 1;\n\t  letter-spacing: normal;\n\t  text-transform: none;\n\t  display: inline-block;\n\t  white-space: nowrap;\n\t  word-wrap: normal;\n\t  direction: ltr;\n\t  -webkit-font-feature-settings: 'liga';\n\t  -webkit-font-smoothing: antialiased;\n\t}\n  "]
         }),
         __metadata("design:paramtypes", [material_1.MdDialogRef,
@@ -1545,8 +1557,6 @@ var VirtualKeyboardKeyComponent = /** @class */ (function () {
         else {
             this.keyValue = this.key;
         }
-        console.log(this.keyValue);
-        console.log(this.special);
         if (this.special) {
             switch (this.keyValue) {
                 case "Backspace":

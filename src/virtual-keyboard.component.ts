@@ -17,7 +17,7 @@ import { KeyPressInterface } from './key-press.interface';
             tabindex="-1"
           >
 			<md-icon *ngIf="!isIE">check</md-icon>
-			<span *ngIf="isIE">OK</span>
+			<span *ngIf="isIE"></span>
           </button>
     
           <input type="{{ type }}"
@@ -353,6 +353,7 @@ export class VirtualKeyboardComponent implements OnInit, OnDestroy {
 				this.virtualKeyboardService.toggleShift();
 				break;
 			case 'SpaceBar':
+			case 'Spacebar':
 				this.handleNormalKey(' ');
 				break;
 		}
@@ -404,13 +405,18 @@ export class VirtualKeyboardComponent implements OnInit, OnDestroy {
 
 	public keyUp($event: KeyboardEvent) {
 
-		
+		/*
+		Fix IE
+		*/
+		let keyvalue = $event.key;
+		if($event.key == "Spacebar" || $event.key == "SpaceBar") {
+			keyvalue = ' ';
+		}
 		var keyPressInterface:KeyPressInterface = {
 			key: ""+ $event.keyCode,
-			keyValue: $event.key,
+			keyValue: keyvalue,
 			special: !this.isNormalLetter($event.keyCode)
 		};
-		
 		
 		this.keyPress(keyPressInterface);
 		$event.preventDefault();

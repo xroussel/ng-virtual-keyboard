@@ -35,8 +35,6 @@ var VirtualKeyboardKeyComponent = /** @class */ (function () {
         else {
             this.keyValue = this.key;
         }
-        console.log(this.keyValue);
-        console.log(this.special);
         if (this.special) {
             switch (this.keyValue) {
                 case "Backspace":

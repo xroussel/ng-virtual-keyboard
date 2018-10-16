@@ -64,6 +64,7 @@ export const specialKeys: Array<string> = [
 	'Escape',
 	'CapsLock',
 	'SpaceBar',
+	'Spacebar',
 	'Spacer',
 	'Shift',
 	'Accent'
