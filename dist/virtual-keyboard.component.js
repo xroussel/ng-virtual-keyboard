@@ -174,7 +174,6 @@ var VirtualKeyboardComponent = /** @class */ (function () {
      *  5) SpaceBar
      */
     VirtualKeyboardComponent.prototype.handleSpecialKey = function (event) {
-        console.log(event.keyValue);
         switch (event.keyValue) {
             case 'Enter':
                 this.confirmDispatch();
@@ -256,7 +255,6 @@ var VirtualKeyboardComponent = /** @class */ (function () {
         this.inputElement.nativeElement.dispatchEvent(event);
     };
     VirtualKeyboardComponent.prototype.keyUp = function ($event) {
-        console.log($event.keyCode);
         /*
         Fix IE
         */
@@ -269,7 +267,6 @@ var VirtualKeyboardComponent = /** @class */ (function () {
             keyValue: keyvalue,
             special: !this.isNormalLetter($event.keyCode)
         };
-        console.log(keyPressInterface);
         this.keyPress(keyPressInterface);
         $event.preventDefault();
     };
