@@ -211,6 +211,7 @@ var VirtualKeyboardComponent = /** @class */ (function () {
                 this.virtualKeyboardService.toggleShift();
                 break;
             case 'SpaceBar':
+            case 'Spacebar':
                 this.handleNormalKey(' ');
                 break;
         }
@@ -254,9 +255,16 @@ var VirtualKeyboardComponent = /** @class */ (function () {
         this.inputElement.nativeElement.dispatchEvent(event);
     };
     VirtualKeyboardComponent.prototype.keyUp = function ($event) {
+        /*
+        Fix IE
+        */
+        var keyvalue = $event.key;
+        if ($event.key == "Spacebar" || $event.key == "SpaceBar") {
+            keyvalue = ' ';
+        }
         var keyPressInterface = {
             key: "" + $event.keyCode,
-            keyValue: $event.key,
+            keyValue: keyvalue,
             special: !this.isNormalLetter($event.keyCode)
         };
         this.keyPress(keyPressInterface);
@@ -275,7 +283,7 @@ var VirtualKeyboardComponent = /** @class */ (function () {
     VirtualKeyboardComponent.decorators = [
         { type: core_1.Component, args: [{
                     selector: 'virtual-keyboard',
-                    template: "\n    <div class=\"container test\" (onBeforeMenuOpen)=\"onBefore($event)\" [sh-context]=\"menuItems\">\n      <div fxLayout=\"column\">\n        <md-input-container>\n          <button class=\"close\" color=\"primary\" md-mini-fab\n            (mouseup)=\"confirmDispatch()\"\n            tabindex=\"-1\"\n          >\n\t\t\t<md-icon *ngIf=\"!isIE\">check</md-icon>\n\t\t\t<span *ngIf=\"isIE\">OK</span>\n          </button>\n    \n          <input type=\"{{ type }}\"\n            mdInput\n            #keyboardInput\n            (click)=\"updateCaretPosition()\"\n            [(ngModel)]=\"inputElement.nativeElement.value\" placeholder=\"{{ placeholder }}\"\n            [maxLength]=\"maxLength\"\n            autofocus\n\t\t\ttabindex=\"1\"\n\t\t\t(keypress)=\"keyUp($event)\"\n          />\n        </md-input-container>\n    \n        <div fxLayout=\"row\" fxLayoutAlign=\"center center\"\n          *ngFor=\"let row of layout; let rowIndex = index\"\n          [attr.data-index]=\"rowIndex\"\n        >\n          <virtual-keyboard-key\n            *ngFor=\"let key of row; let keyIndex = index\"\n            [key]=\"key\"\n            [disabled]=\"disabled\"\n            [attr.data-index]=\"keyIndex\"\n            (keyPress)=\"keyPress($event)\"\n          ></virtual-keyboard-key>\n        </div>\n\t  </div>\n    </div>\n  ",
+                    template: "\n    <div class=\"container test\" (onBeforeMenuOpen)=\"onBefore($event)\" [sh-context]=\"menuItems\">\n      <div fxLayout=\"column\">\n        <md-input-container>\n          <button class=\"close\" color=\"primary\" md-mini-fab\n            (mouseup)=\"confirmDispatch()\"\n            tabindex=\"-1\"\n          >\n\t\t\t<md-icon *ngIf=\"!isIE\">check</md-icon>\n\t\t\t<span *ngIf=\"isIE\"></span>\n          </button>\n    \n          <input type=\"{{ type }}\"\n            mdInput\n            #keyboardInput\n            (click)=\"updateCaretPosition()\"\n            [(ngModel)]=\"inputElement.nativeElement.value\" placeholder=\"{{ placeholder }}\"\n            [maxLength]=\"maxLength\"\n            autofocus\n\t\t\ttabindex=\"1\"\n\t\t\t(keypress)=\"keyUp($event)\"\n          />\n        </md-input-container>\n    \n        <div fxLayout=\"row\" fxLayoutAlign=\"center center\"\n          *ngFor=\"let row of layout; let rowIndex = index\"\n          [attr.data-index]=\"rowIndex\"\n        >\n          <virtual-keyboard-key\n            *ngFor=\"let key of row; let keyIndex = index\"\n            [key]=\"key\"\n            [disabled]=\"disabled\"\n            [attr.data-index]=\"keyIndex\"\n            (keyPress)=\"keyPress($event)\"\n          ></virtual-keyboard-key>\n        </div>\n\t  </div>\n    </div>\n  ",
                     styles: ["\n    .close {\n      position: relative;\n      float: right;\n      top: -16px;\n      right: 0;\n      margin-bottom: -40px;\n    }\n  \n    .mat-input-container {\n      margin: -16px 0;\n      font-size: 32px;\n    }\n  \n    .mat-input-element:disabled {\n      color: currentColor;\n    }\n\n    :host /deep/ .mat-input-placeholder {\n      top: 10px !important;\n      font-size: 24px !important;\n\t}\n\t/* fallback */\n\t@font-face {\n\t  font-family: 'Material Icons';\n\t  font-style: normal;\n\t  font-weight: 400;\n\t  src: url(./assets/fonts/font.woff2) format('woff2');\n\t}\n\t\n\t.material-icons {\n\t  font-family: 'Material Icons';\n\t  font-weight: normal;\n\t  font-style: normal;\n\t  font-size: 24px;\n\t  line-height: 1;\n\t  letter-spacing: normal;\n\t  text-transform: none;\n\t  display: inline-block;\n\t  white-space: nowrap;\n\t  word-wrap: normal;\n\t  direction: ltr;\n\t  -webkit-font-feature-settings: 'liga';\n\t  -webkit-font-smoothing: antialiased;\n\t}\n  "]
                 },] },
     ];

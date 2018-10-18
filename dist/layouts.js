@@ -57,6 +57,7 @@ exports.specialKeys = [
     'Escape',
     'CapsLock',
     'SpaceBar',
+    'Spacebar',
     'Spacer',
     'Shift',
     'Accent'
