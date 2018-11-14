@@ -211,16 +211,16 @@ ShContextMenuComponent.propDecorators = {
 
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.alphanumericKeyboardSwiss = [
-    ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'Backspace:2'],
-    ['q', 'w', 'e', 'r', 't', 'z', 'u', 'i', 'o', 'p', 'CapsLock:2'],
-    ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'Spacer', 'Enter:2'],
-    ['y', 'x', 'c', 'v', 'b', 'n', 'm', 'Spacer:3', 'Accent:2'],
-    ['SpaceBar:12']
+    ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'Backspace:3'],
+    ['q', 'w', 'e', 'r', 't', 'z', 'u', 'i', 'o', 'p', 'CapsLock:3'],
+    ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', '/', '_', 'Enter:2'],
+    ['y', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '-', 'Spacer', 'Accent:2'],
+    ['SpaceBar:13']
 ];
 exports.alphanumericKeyboardSwissAccent = [
     ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'Backspace:2'],
-    ['à', 'æ', 'ä', 'â', 'é', 'è', 'ë', 'ê', 'Spacer:2', 'CapsLock:2'],
-    ['ì', 'ï', 'î', 'ù', 'ü', 'û', 'ö', 'ò', 'ô', 'Spacer:1', 'Enter:2'],
+    ['à', 'æ', 'ä', 'â', 'é', 'è', 'ë', 'ê', ':', ';', 'CapsLock:2'],
+    ['ì', 'ï', 'î', 'ù', 'ü', 'û', 'ö', 'ò', 'ô', 'ø', 'Enter:2'],
     ['Spacer:10', 'Accent:2'],
 ];
 exports.alphanumericKeyboard = [
