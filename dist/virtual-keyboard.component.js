@@ -214,6 +214,21 @@ var VirtualKeyboardComponent = /** @class */ (function () {
             case 'Spacebar':
                 this.handleNormalKey(' ');
                 break;
+            case 'Subtract':
+                this.handleNormalKey('-');
+                break;
+            case 'Divide':
+                this.handleNormalKey('/');
+                break;
+            case 'Multiply':
+                this.handleNormalKey('*');
+                break;
+            case 'Add':
+                this.handleNormalKey('+');
+                break;
+            case 'Del':
+                this.handleNormalKey('.');
+                break;
         }
     };
     /**
@@ -261,6 +276,21 @@ var VirtualKeyboardComponent = /** @class */ (function () {
         var keyvalue = $event.key;
         if ($event.key == "Spacebar" || $event.key == "SpaceBar") {
             keyvalue = ' ';
+        }
+        if ($event.key == "Subtract") {
+            keyvalue = '-';
+        }
+        if ($event.key == "Multiply") {
+            keyvalue = '*';
+        }
+        if ($event.key == "Divide") {
+            keyvalue = '/';
+        }
+        if ($event.key == "Add") {
+            keyvalue = '+';
+        }
+        if ($event.key == "Del") {
+            keyvalue = '.';
         }
         var keyPressInterface = {
             key: "" + $event.keyCode,

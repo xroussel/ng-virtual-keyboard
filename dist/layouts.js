@@ -60,7 +60,12 @@ exports.specialKeys = [
     'Spacebar',
     'Spacer',
     'Shift',
-    'Accent'
+    'Accent',
+    'Substract',
+    'Divide',
+    'Multiply',
+    'Add',
+    'Del'
 ];
 exports.specialKeyIcons = {
     Enter: 'keyboard_return',

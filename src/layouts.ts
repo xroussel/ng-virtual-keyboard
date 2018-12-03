@@ -68,7 +68,12 @@ export const specialKeys: Array<string> = [
 	'Spacebar',
 	'Spacer',
 	'Shift',
-	'Accent'
+	'Accent',
+	'Substract',
+	'Divide',
+	'Multiply',
+	'Add',
+	'Del'
 ];
 
 export const specialKeyIcons = {
