@@ -371,6 +371,9 @@ export class VirtualKeyboardComponent implements OnInit, OnDestroy {
 			case 'Del':
 				this.handleNormalKey('.');
 				break;
+			case 'ö':
+				this.handleNormalKey('ö');
+				break;
 		}
 	}
 
@@ -447,7 +450,10 @@ export class VirtualKeyboardComponent implements OnInit, OnDestroy {
 		if($event.key == "Del") {
 			keyvalue = '.';
 		}
-
+		if($event.key == "ö") {
+			keyvalue = 'ö';
+		}
+		
 		var keyPressInterface:KeyPressInterface = {
 			key: ""+ $event.keyCode,
 			keyValue: keyvalue,
