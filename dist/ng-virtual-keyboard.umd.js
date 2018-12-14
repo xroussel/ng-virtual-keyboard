@@ -955,6 +955,9 @@ var VirtualKeyboardComponent = /** @class */ (function () {
             case 'Del':
                 this.handleNormalKey('.');
                 break;
+            case 'ö':
+                this.handleNormalKey('ö');
+                break;
         }
     };
     /**
