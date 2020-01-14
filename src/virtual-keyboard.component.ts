@@ -29,6 +29,7 @@ import { KeyPressInterface } from './key-press.interface';
             autofocus
 			tabindex="1"
 			(keypress)="keyUp($event)"
+			style="width: calc(100% - 90px);background-position-x: 100%;"
           />
         </md-input-container>
     
