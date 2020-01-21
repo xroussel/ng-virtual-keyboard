@@ -75,7 +75,8 @@ export class NgVirtualKeyboardDirective {
       this.dialogRef.componentInstance.layout = this.getLayout();
 	  this.dialogRef.componentInstance.placeholder = this.getPlaceHolder();
 	  this.dialogRef.componentInstance.type = this.getType();
-	  this.dialogRef.componentInstance.noRightClick = this.getRightClickDisabled();
+    this.dialogRef.componentInstance.noRightClick = this.getRightClickDisabled();
+    this.virtualKeyboardComponent.virtualKeyboardService.setCaretPosition(this.virtualKeyboardComponent.keyboardInput.nativeElement.selectionStart) ;
 
       this.dialogRef
         .afterClosed()

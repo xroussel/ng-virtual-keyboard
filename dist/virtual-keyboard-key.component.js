@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var layouts_1 = require("./layouts");
 //	  //src: url(https://fonts.gstatic.com/s/materialicons/v30/2fcrYFNaTjcS6g4U3t-Y5UEw0lE80llgEseQY3FEmqw.woff2) format('woff2');
-var VirtualKeyboardKeyComponent = /** @class */ (function () {
+var VirtualKeyboardKeyComponent = (function () {
     /**
      * Constructor of the class.
      */

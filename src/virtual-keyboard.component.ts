@@ -14,7 +14,7 @@ import { KeyPressInterface } from './key-press.interface';
         <md-input-container>
           <button class="close" color="primary" md-mini-fab
             (mouseup)="confirmDispatch()"
-            tabindex="-1"
+	    tabindex="-1"
           >
 			<md-icon *ngIf="!isIE">check</md-icon>
 			<span *ngIf="isIE"></span>
@@ -30,7 +30,7 @@ import { KeyPressInterface } from './key-press.interface';
 			tabindex="1"
 			(keypress)="keyUp($event)"
 			style="width: calc(100% - 90px);background-position-x: 100%;"
-          />
+		/>
         </md-input-container>
     
         <div fxLayout="row" fxLayoutAlign="center center"
@@ -150,7 +150,7 @@ export class VirtualKeyboardComponent implements OnInit, OnDestroy {
 	 */
 	public constructor(
 		public dialogRef: MdDialogRef<VirtualKeyboardComponent>,
-		private virtualKeyboardService: VirtualKeyboardService
+		public virtualKeyboardService: VirtualKeyboardService
 	) { }
 
 	/**
@@ -314,6 +314,7 @@ export class VirtualKeyboardComponent implements OnInit, OnDestroy {
 	 *  5) SpaceBar
 	 */
 	private handleSpecialKey(event: KeyPressInterface): void {
+		console.log(event.keyValue)
 		switch (event.keyValue) {
 			case 'Enter':
 				this.confirmDispatch()
@@ -324,6 +325,11 @@ export class VirtualKeyboardComponent implements OnInit, OnDestroy {
 				break;
 			case 'Backspace':
 				const currentValue = this.inputElement.nativeElement.value;
+				if(this.caretPosition > this.keyboardInput.nativeElement.value.length) {
+					this.virtualKeyboardService.setCaretPosition(this.keyboardInput.nativeElement.value.length);
+					this.caretPosition = this.keyboardInput.nativeElement.value.length ;
+				}
+				console.log("backspace" + this.caretPosition)
 
 				// We have a caret position, so we need to remove char from that position
 				if (!isNaN(this.caretPosition)) {

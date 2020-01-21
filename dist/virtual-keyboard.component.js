@@ -4,7 +4,7 @@ var core_1 = require("@angular/core");
 var material_1 = require("@angular/material");
 var layouts_1 = require("./layouts");
 var virtual_keyboard_service_1 = require("./virtual-keyboard.service");
-var VirtualKeyboardComponent = /** @class */ (function () {
+var VirtualKeyboardComponent = (function () {
     /**
      * Constructor of the class.
      *
@@ -174,6 +174,7 @@ var VirtualKeyboardComponent = /** @class */ (function () {
      *  5) SpaceBar
      */
     VirtualKeyboardComponent.prototype.handleSpecialKey = function (event) {
+        console.log(event.keyValue);
         switch (event.keyValue) {
             case 'Enter':
                 this.confirmDispatch();
@@ -184,6 +185,11 @@ var VirtualKeyboardComponent = /** @class */ (function () {
                 break;
             case 'Backspace':
                 var currentValue = this.inputElement.nativeElement.value;
+                if (this.caretPosition > this.keyboardInput.nativeElement.value.length) {
+                    this.virtualKeyboardService.setCaretPosition(this.keyboardInput.nativeElement.value.length);
+                    this.caretPosition = this.keyboardInput.nativeElement.value.length;
+                }
+                console.log("backspace" + this.caretPosition);
                 // We have a caret position, so we need to remove char from that position
                 if (!isNaN(this.caretPosition)) {
                     // And current position must > 0
@@ -304,11 +310,11 @@ var VirtualKeyboardComponent = /** @class */ (function () {
         $event.preventDefault();
     };
     VirtualKeyboardComponent.prototype.isNormalLetter = function (keycode) {
-        return (keycode > 47 && keycode < 58) || // number keys
-            keycode == 32 || // spacebar key (if you want to allow carriage returns)
-            (keycode > 64 && keycode < 123) || // letter keys
-            (keycode > 95 && keycode < 112) || // numpad keys
-            (keycode > 185 && keycode < 193) || // ;=,-./` (in order)
+        return (keycode > 47 && keycode < 58) ||
+            keycode == 32 ||
+            (keycode > 64 && keycode < 123) ||
+            (keycode > 95 && keycode < 112) ||
+            (keycode > 185 && keycode < 193) ||
             (keycode > 218 && keycode < 234) ||
             keycode == 252 || keycode == 163 ||
             (keycode > 32 && keycode < 64);
@@ -316,7 +322,7 @@ var VirtualKeyboardComponent = /** @class */ (function () {
     VirtualKeyboardComponent.decorators = [
         { type: core_1.Component, args: [{
                     selector: 'virtual-keyboard',
-                    template: "\n    <div class=\"container test\" (onBeforeMenuOpen)=\"onBefore($event)\" [sh-context]=\"menuItems\">\n      <div fxLayout=\"column\">\n        <md-input-container>\n          <button class=\"close\" color=\"primary\" md-mini-fab\n            (mouseup)=\"confirmDispatch()\"\n            tabindex=\"-1\"\n          >\n\t\t\t<md-icon *ngIf=\"!isIE\">check</md-icon>\n\t\t\t<span *ngIf=\"isIE\"></span>\n          </button>\n    \n          <input type=\"{{ type }}\"\n            mdInput\n            #keyboardInput\n            (click)=\"updateCaretPosition()\"\n            [(ngModel)]=\"inputElement.nativeElement.value\" placeholder=\"{{ placeholder }}\"\n            [maxLength]=\"maxLength\"\n            autofocus\n\t\t\ttabindex=\"1\"\n\t\t\t(keypress)=\"keyUp($event)\"\n          />\n        </md-input-container>\n    \n        <div fxLayout=\"row\" fxLayoutAlign=\"center center\"\n          *ngFor=\"let row of layout; let rowIndex = index\"\n          [attr.data-index]=\"rowIndex\"\n        >\n          <virtual-keyboard-key\n            *ngFor=\"let key of row; let keyIndex = index\"\n            [key]=\"key\"\n            [disabled]=\"disabled\"\n            [attr.data-index]=\"keyIndex\"\n            (keyPress)=\"keyPress($event)\"\n          ></virtual-keyboard-key>\n        </div>\n\t  </div>\n    </div>\n  ",
+                    template: "\n    <div class=\"container test\" (onBeforeMenuOpen)=\"onBefore($event)\" [sh-context]=\"menuItems\">\n      <div fxLayout=\"column\">\n        <md-input-container>\n          <button class=\"close\" color=\"primary\" md-mini-fab\n            (mouseup)=\"confirmDispatch()\"\n\t    tabindex=\"-1\"\n          >\n\t\t\t<md-icon *ngIf=\"!isIE\">check</md-icon>\n\t\t\t<span *ngIf=\"isIE\"></span>\n          </button>\n    \n          <input type=\"{{ type }}\"\n            mdInput\n            #keyboardInput\n            (click)=\"updateCaretPosition()\"\n            [(ngModel)]=\"inputElement.nativeElement.value\" placeholder=\"{{ placeholder }}\"\n            [maxLength]=\"maxLength\"\n            autofocus\n\t\t\ttabindex=\"1\"\n\t\t\t(keypress)=\"keyUp($event)\"\n\t\t\tstyle=\"width: calc(100% - 90px);background-position-x: 100%;\"\n\t\t/>\n        </md-input-container>\n    \n        <div fxLayout=\"row\" fxLayoutAlign=\"center center\"\n          *ngFor=\"let row of layout; let rowIndex = index\"\n          [attr.data-index]=\"rowIndex\"\n        >\n          <virtual-keyboard-key\n            *ngFor=\"let key of row; let keyIndex = index\"\n            [key]=\"key\"\n            [disabled]=\"disabled\"\n            [attr.data-index]=\"keyIndex\"\n            (keyPress)=\"keyPress($event)\"\n          ></virtual-keyboard-key>\n        </div>\n\t  </div>\n    </div>\n  ",
                     styles: ["\n    .close {\n      position: relative;\n      float: right;\n      top: -16px;\n      right: 0;\n      margin-bottom: -40px;\n    }\n  \n    .mat-input-container {\n      margin: -16px 0;\n      font-size: 32px;\n    }\n  \n    .mat-input-element:disabled {\n      color: currentColor;\n    }\n\n    :host /deep/ .mat-input-placeholder {\n      top: 10px !important;\n      font-size: 24px !important;\n\t}\n\t/* fallback */\n\t@font-face {\n\t  font-family: 'Material Icons';\n\t  font-style: normal;\n\t  font-weight: 400;\n\t  src: url(./assets/fonts/font.woff2) format('woff2');\n\t}\n\t\n\t.material-icons {\n\t  font-family: 'Material Icons';\n\t  font-weight: normal;\n\t  font-style: normal;\n\t  font-size: 24px;\n\t  line-height: 1;\n\t  letter-spacing: normal;\n\t  text-transform: none;\n\t  display: inline-block;\n\t  white-space: nowrap;\n\t  word-wrap: normal;\n\t  direction: ltr;\n\t  -webkit-font-feature-settings: 'liga';\n\t  -webkit-font-smoothing: antialiased;\n\t}\n  "]
                 },] },
     ];

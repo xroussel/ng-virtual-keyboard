@@ -78,6 +78,7 @@ export class VirtualKeyboardService {
    * @param {number}  position
    */
   public setCaretPosition(position: number) {
+    console.log("setCarret " + position)
     this.caretPosition$.next(position);
   }
 

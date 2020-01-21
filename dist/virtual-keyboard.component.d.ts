@@ -6,7 +6,7 @@ import { VirtualKeyboardService } from './virtual-keyboard.service';
 import { KeyPressInterface } from './key-press.interface';
 export declare class VirtualKeyboardComponent implements OnInit, OnDestroy {
     dialogRef: MdDialogRef<VirtualKeyboardComponent>;
-    private virtualKeyboardService;
+    virtualKeyboardService: VirtualKeyboardService;
     keyboardInput: ElementRef;
     confirm: EventEmitter<{}>;
     inputElement: ElementRef;

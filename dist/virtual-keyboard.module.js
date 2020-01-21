@@ -10,7 +10,7 @@ var virtual_keyboard_directive_1 = require("./virtual-keyboard.directive");
 var virtual_keyboard_component_1 = require("./virtual-keyboard.component");
 var virtual_keyboard_key_component_1 = require("./virtual-keyboard-key.component");
 var virtual_keyboard_service_1 = require("./virtual-keyboard.service");
-var NgVirtualKeyboardModule = /** @class */ (function () {
+var NgVirtualKeyboardModule = (function () {
     function NgVirtualKeyboardModule() {
     }
     NgVirtualKeyboardModule.decorators = [

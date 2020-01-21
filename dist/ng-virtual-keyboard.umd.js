@@ -1,13 +1,13 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("@angular/core"), require("@angular/material"), require("@angular/common"), require("@angular/flex-layout"), require("@angular/forms"), require("rxjs/ReplaySubject"));
+		module.exports = factory(require("@angular/core"), require("@angular/material"), require("@angular/common"), require("rxjs/ReplaySubject"), require("@angular/forms"), require("@angular/flex-layout"));
 	else if(typeof define === 'function' && define.amd)
-		define(["@angular/core", "@angular/material", "@angular/common", "@angular/flex-layout", "@angular/forms", "rxjs/ReplaySubject"], factory);
+		define(["@angular/core", "@angular/material", "@angular/common", "rxjs/ReplaySubject", "@angular/forms", "@angular/flex-layout"], factory);
 	else if(typeof exports === 'object')
-		exports["ng-virtual-keyboard"] = factory(require("@angular/core"), require("@angular/material"), require("@angular/common"), require("@angular/flex-layout"), require("@angular/forms"), require("rxjs/ReplaySubject"));
+		exports["ng-virtual-keyboard"] = factory(require("@angular/core"), require("@angular/material"), require("@angular/common"), require("rxjs/ReplaySubject"), require("@angular/forms"), require("@angular/flex-layout"));
 	else
-		root["ng-virtual-keyboard"] = factory(root["@angular/core"], root["@angular/material"], root["@angular/common"], root["@angular/flex-layout"], root["@angular/forms"], root["rxjs/ReplaySubject"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_0__, __WEBPACK_EXTERNAL_MODULE_4__, __WEBPACK_EXTERNAL_MODULE_10__, __WEBPACK_EXTERNAL_MODULE_20__, __WEBPACK_EXTERNAL_MODULE_21__, __WEBPACK_EXTERNAL_MODULE_22__) {
+		root["ng-virtual-keyboard"] = factory(root["@angular/core"], root["@angular/material"], root["@angular/common"], root["rxjs/ReplaySubject"], root["@angular/forms"], root["@angular/flex-layout"]);
+})(typeof self !== 'undefined' ? self : this, function(__WEBPACK_EXTERNAL_MODULE_0__, __WEBPACK_EXTERNAL_MODULE_2__, __WEBPACK_EXTERNAL_MODULE_8__, __WEBPACK_EXTERNAL_MODULE_12__, __WEBPACK_EXTERNAL_MODULE_14__, __WEBPACK_EXTERNAL_MODULE_15__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -43,9 +43,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// expose the module cache
 /******/ 	__webpack_require__.c = installedModules;
 /******/
-/******/ 	// identity function for calling harmony imports with the correct context
-/******/ 	__webpack_require__.i = function(value) { return value; };
-/******/
 /******/ 	// define getter function for harmony exports
 /******/ 	__webpack_require__.d = function(exports, name, getter) {
 /******/ 		if(!__webpack_require__.o(exports, name)) {
@@ -73,7 +70,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 18);
+/******/ 	return __webpack_require__(__webpack_require__.s = 11);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -87,12 +84,12 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_0__;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return ShContextService; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ShContextServiceModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ShContextService; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return ShContextServiceModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__angular_core__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__injector_service__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__sh_context_menu_models__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__injector_service__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__sh_context_menu_models__ = __webpack_require__(20);
 
 
 
@@ -131,77 +128,9 @@ ShContextServiceModule.ctorParameters = function () { return []; };
 
 /***/ }),
 /* 2 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ShContextMenuComponent; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__sh_context_service__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__angular_core__);
-
-
-var ShContextMenuComponent = (function () {
-    function ShContextMenuComponent(ctxService) {
-        this.ctxService = ctxService;
-        this.onClose = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["EventEmitter"]();
-    }
-    ShContextMenuComponent.prototype.ngOnInit = function () {
-        this.options = this.ctxService.getOptions();
-    };
-    ShContextMenuComponent.prototype.ngAfterContentInit = function () {
-        if (this.options.rtl)
-            this.setRtlLocation();
-    };
-    ShContextMenuComponent.prototype.close = function () {
-        this.onClose.emit();
-    };
-    ShContextMenuComponent.prototype.onClick = function (item) {
-        if (this.isItemDisabled(item))
-            return;
-        if (item.onClick) {
-            item.onClick({
-                menuItem: item,
-                dataContext: this.dataContext
-            });
-            this.close();
-        }
-    };
-    ShContextMenuComponent.prototype.isItemDisabled = function (item) {
-        if (!item.disabled)
-            return false;
-        return item.disabled(this.dataContext);
-    };
-    ShContextMenuComponent.prototype.isItemVisible = function (item) {
-        if (!item.visible)
-            return true;
-        return item.visible(this.dataContext);
-    };
-    ShContextMenuComponent.prototype.setRtlLocation = function () {
-        var elmRect = this.childRef.nativeElement.getClientRects()[0];
-        this.position.left = this.position.left - elmRect.width;
-    };
-    return ShContextMenuComponent;
-}());
-
-ShContextMenuComponent.decorators = [
-    { type: __WEBPACK_IMPORTED_MODULE_1__angular_core__["Component"], args: [{
-                selector: 'sh-context-menu',
-                template: "\n    <div #childRef class=\"sh-context--container\"\n      [class.dark]=\"options.theme == 'dark'\"\n      [style.left]=\"position.left + 'px'\"\n      [style.top]=\"position.top + 'px'\"\n      [style.direction]=\"(options.rtl ? 'rtl' : 'ltr' )\">\n      <ul>\n          <li *ngFor=\"let item of items\"\n            [ngClass]=\"{'sh-menu-item': !item.divider, 'sh-context-divider': item.divider, 'sh-menu-disabled': isItemDisabled(item), 'sh-menu-hidden': !isItemVisible(item)}\"\n            (click)=\"onClick(item)\">\n              <div *ngIf=\"!item.divider && !item.subMenu\" [sh-html]=\"item.label\">\n              </div> \n              <div *ngIf=\"item.subMenu\"\n                [sh-context-sub-menu]=\"item.subMenuItems\"\n                [sh-data-context]=\"dataContext\"\n                (closeSubMenu)=\"close()\"\n                [sh-html]=\"item.label\">\n               <div [ngClass]=\"{'right-arrow': !options.rtl, 'left-arrow': options.rtl}\"></div>\n              </div>\n          </li>\n      </ul>\n    </div>\n",
-                styles: ["\n  .sh-context--container{\n    font-family: sans-serif;\n    position: fixed;\n    background: #ececec;\n    min-width: 150px;\n    border: 1px solid rgba(0,0,0,0.2);\n    border-radius: 3px;\n    box-shadow: 0 0 10px 2px rgba(0,0,0,0.1);\n    z-index: 100;\n    color: black;\n\n    \n  }\n  .dark{\n      background:#383737 !important;\n      color:white !important;\n    }\n  .sh-context--container ul{\n    list-style: none;\n    padding: 5px 0;\n    margin: 0;\n  }\n\n  .sh-context--container ul li{\n      padding: 5px 10px 5px 15px;\n      transition: all 0.15s;\n  }\n\n  .sh-context--container ul li.sh-context-divider{\n      height: 1px;\n      margin: 1px 1px 8px 1px;\n      overflow: hidden;\n      border-bottom: 1px solid #d0d0d0;\n      line-height: 10px;\n    }\n\n  .sh-context--container ul li.sh-menu-item:hover{\n      cursor: pointer;\n      background: #4b8bec;\n      color: white;\n  }\n \n   .sh-context--container.dark ul li.sh-menu-item:hover{\n      cursor: pointer;\n      background: #4b8bec;\n      color: white;\n  }\n  .sh-context--container ul li.sh-menu-disabled{\n      color: #d0d0d0;\n   }\n\n   .sh-context--container ul li.sh-menu-item.sh-menu-hidden{\n      display: none;\n   }\n\n  .sh-context--container ul li.sh-menu-disabled:hover{\n      cursor: not-allowed;\n      color: #d0d0d0;\n      background: #ececec;\n  }\n\n  .right-arrow{\n    float: right;\n    margin-left: 10px;\n    margin-top: 3px;\n    border-top: 6px solid transparent;\n    border-bottom: 6px solid transparent;\n    border-left: 8px solid black;\n  }\n\n  .left-arrow{\n    float: left;\n    margin-right: 10px;\n    margin-top: 3px;\n    border-top: 6px solid transparent;\n    border-bottom: 6px solid transparent;\n    border-right: 8px solid black;\n  }\n"]
-            },] },
-];
-/** @nocollapse */
-ShContextMenuComponent.ctorParameters = function () { return [
-    { type: __WEBPACK_IMPORTED_MODULE_0__sh_context_service__["b" /* ShContextService */], },
-]; };
-ShContextMenuComponent.propDecorators = {
-    'position': [{ type: __WEBPACK_IMPORTED_MODULE_1__angular_core__["Input"] },],
-    'items': [{ type: __WEBPACK_IMPORTED_MODULE_1__angular_core__["Input"] },],
-    'dataContext': [{ type: __WEBPACK_IMPORTED_MODULE_1__angular_core__["Input"] },],
-    'onClose': [{ type: __WEBPACK_IMPORTED_MODULE_1__angular_core__["Output"] },],
-    'childRef': [{ type: __WEBPACK_IMPORTED_MODULE_1__angular_core__["ViewChild"], args: ['childRef',] },],
-};
-//# sourceMappingURL=sh-context-menu.component.js.map
+module.exports = __WEBPACK_EXTERNAL_MODULE_2__;
 
 /***/ }),
 /* 3 */
@@ -353,9 +282,77 @@ exports.keyboardAccentLayout = keyboardAccentLayout;
 
 /***/ }),
 /* 4 */
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __WEBPACK_EXTERNAL_MODULE_4__;
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ShContextMenuComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__sh_context_service__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__angular_core__);
+
+
+var ShContextMenuComponent = (function () {
+    function ShContextMenuComponent(ctxService) {
+        this.ctxService = ctxService;
+        this.onClose = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["EventEmitter"]();
+    }
+    ShContextMenuComponent.prototype.ngOnInit = function () {
+        this.options = this.ctxService.getOptions();
+    };
+    ShContextMenuComponent.prototype.ngAfterContentInit = function () {
+        if (this.options.rtl)
+            this.setRtlLocation();
+    };
+    ShContextMenuComponent.prototype.close = function () {
+        this.onClose.emit();
+    };
+    ShContextMenuComponent.prototype.onClick = function (item) {
+        if (this.isItemDisabled(item))
+            return;
+        if (item.onClick) {
+            item.onClick({
+                menuItem: item,
+                dataContext: this.dataContext
+            });
+            this.close();
+        }
+    };
+    ShContextMenuComponent.prototype.isItemDisabled = function (item) {
+        if (!item.disabled)
+            return false;
+        return item.disabled(this.dataContext);
+    };
+    ShContextMenuComponent.prototype.isItemVisible = function (item) {
+        if (!item.visible)
+            return true;
+        return item.visible(this.dataContext);
+    };
+    ShContextMenuComponent.prototype.setRtlLocation = function () {
+        var elmRect = this.childRef.nativeElement.getClientRects()[0];
+        this.position.left = this.position.left - elmRect.width;
+    };
+    return ShContextMenuComponent;
+}());
+
+ShContextMenuComponent.decorators = [
+    { type: __WEBPACK_IMPORTED_MODULE_1__angular_core__["Component"], args: [{
+                selector: 'sh-context-menu',
+                template: "\n    <div #childRef class=\"sh-context--container\"\n      [class.dark]=\"options.theme == 'dark'\"\n      [style.left]=\"position.left + 'px'\"\n      [style.top]=\"position.top + 'px'\"\n      [style.direction]=\"(options.rtl ? 'rtl' : 'ltr' )\">\n      <ul>\n          <li *ngFor=\"let item of items\"\n            [ngClass]=\"{'sh-menu-item': !item.divider, 'sh-context-divider': item.divider, 'sh-menu-disabled': isItemDisabled(item), 'sh-menu-hidden': !isItemVisible(item)}\"\n            (click)=\"onClick(item)\">\n              <div *ngIf=\"!item.divider && !item.subMenu\" [sh-html]=\"item.label\">\n              </div> \n              <div *ngIf=\"item.subMenu\"\n                [sh-context-sub-menu]=\"item.subMenuItems\"\n                [sh-data-context]=\"dataContext\"\n                (closeSubMenu)=\"close()\"\n                [sh-html]=\"item.label\">\n               <div [ngClass]=\"{'right-arrow': !options.rtl, 'left-arrow': options.rtl}\"></div>\n              </div>\n          </li>\n      </ul>\n    </div>\n",
+                styles: ["\n  .sh-context--container{\n    font-family: sans-serif;\n    position: fixed;\n    background: #ececec;\n    min-width: 150px;\n    border: 1px solid rgba(0,0,0,0.2);\n    border-radius: 3px;\n    box-shadow: 0 0 10px 2px rgba(0,0,0,0.1);\n    z-index: 100;\n    color: black;\n\n    \n  }\n  .dark{\n      background:#383737 !important;\n      color:white !important;\n    }\n  .sh-context--container ul{\n    list-style: none;\n    padding: 5px 0;\n    margin: 0;\n  }\n\n  .sh-context--container ul li{\n      padding: 5px 10px 5px 15px;\n      transition: all 0.15s;\n  }\n\n  .sh-context--container ul li.sh-context-divider{\n      height: 1px;\n      margin: 1px 1px 8px 1px;\n      overflow: hidden;\n      border-bottom: 1px solid #d0d0d0;\n      line-height: 10px;\n    }\n\n  .sh-context--container ul li.sh-menu-item:hover{\n      cursor: pointer;\n      background: #4b8bec;\n      color: white;\n  }\n \n   .sh-context--container.dark ul li.sh-menu-item:hover{\n      cursor: pointer;\n      background: #4b8bec;\n      color: white;\n  }\n  .sh-context--container ul li.sh-menu-disabled{\n      color: #d0d0d0;\n   }\n\n   .sh-context--container ul li.sh-menu-item.sh-menu-hidden{\n      display: none;\n   }\n\n  .sh-context--container ul li.sh-menu-disabled:hover{\n      cursor: not-allowed;\n      color: #d0d0d0;\n      background: #ececec;\n  }\n\n  .right-arrow{\n    float: right;\n    margin-left: 10px;\n    margin-top: 3px;\n    border-top: 6px solid transparent;\n    border-bottom: 6px solid transparent;\n    border-left: 8px solid black;\n  }\n\n  .left-arrow{\n    float: left;\n    margin-right: 10px;\n    margin-top: 3px;\n    border-top: 6px solid transparent;\n    border-bottom: 6px solid transparent;\n    border-right: 8px solid black;\n  }\n"]
+            },] },
+];
+/** @nocollapse */
+ShContextMenuComponent.ctorParameters = function () { return [
+    { type: __WEBPACK_IMPORTED_MODULE_0__sh_context_service__["a" /* ShContextService */], },
+]; };
+ShContextMenuComponent.propDecorators = {
+    'position': [{ type: __WEBPACK_IMPORTED_MODULE_1__angular_core__["Input"] },],
+    'items': [{ type: __WEBPACK_IMPORTED_MODULE_1__angular_core__["Input"] },],
+    'dataContext': [{ type: __WEBPACK_IMPORTED_MODULE_1__angular_core__["Input"] },],
+    'onClose': [{ type: __WEBPACK_IMPORTED_MODULE_1__angular_core__["Output"] },],
+    'childRef': [{ type: __WEBPACK_IMPORTED_MODULE_1__angular_core__["ViewChild"], args: ['childRef',] },],
+};
+//# sourceMappingURL=sh-context-menu.component.js.map
 
 /***/ }),
 /* 5 */
@@ -374,10 +371,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(0);
-var material_1 = __webpack_require__(4);
-var virtual_keyboard_component_1 = __webpack_require__(8);
+var material_1 = __webpack_require__(2);
+var virtual_keyboard_component_1 = __webpack_require__(6);
 var layouts_1 = __webpack_require__(3);
-var NgVirtualKeyboardDirective = /** @class */ (function () {
+var NgVirtualKeyboardDirective = (function () {
     /**
      * Constructor of the class.
      *
@@ -419,6 +416,7 @@ var NgVirtualKeyboardDirective = /** @class */ (function () {
             this.dialogRef.componentInstance.placeholder = this.getPlaceHolder();
             this.dialogRef.componentInstance.type = this.getType();
             this.dialogRef.componentInstance.noRightClick = this.getRightClickDisabled();
+            this.virtualKeyboardComponent.virtualKeyboardService.setCaretPosition(this.virtualKeyboardComponent.keyboardInput.nativeElement.selectionStart);
             this.dialogRef
                 .afterClosed()
                 .subscribe(function () {
@@ -549,168 +547,6 @@ exports.NgVirtualKeyboardDirective = NgVirtualKeyboardDirective;
 
 /***/ }),
 /* 6 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return InjectionService; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__angular_core__);
-
-/**
- * Injection service is a helper to append components
- * dynamically to a known location in the DOM, most
- * noteably for dialogs/tooltips appending to body.
- *
- * @export
- * @class InjectionService
- */
-var InjectionService = (function () {
-    function InjectionService(applicationRef, componentFactoryResolver, injector) {
-        this.applicationRef = applicationRef;
-        this.componentFactoryResolver = componentFactoryResolver;
-        this.injector = injector;
-    }
-    /**
-     * Gets the root view container to inject the component to.
-     *
-     * @returns {ComponentRef<any>}
-     *
-     * @memberOf InjectionService
-     */
-    InjectionService.prototype.getRootViewContainer = function () {
-        if (this._container)
-            return this._container;
-        var rootComponents = this.applicationRef['_rootComponents'];
-        if (rootComponents.length)
-            return rootComponents[0];
-        throw new Error('View Container not found! ngUpgrade needs to manually set this via setRootViewContainer.');
-    };
-    /**
-     * Overrides the default root view container. This is useful for
-     * things like ngUpgrade that doesn't have a ApplicationRef root.
-     *
-     * @param {any} container
-     *
-     * @memberOf InjectionService
-     */
-    InjectionService.prototype.setRootViewContainer = function (container) {
-        this._container = container;
-    };
-    /**
-     * Gets the html element for a component ref.
-     *
-     * @param {ComponentRef<any>} componentRef
-     * @returns {HTMLElement}
-     *
-     * @memberOf InjectionService
-     */
-    InjectionService.prototype.getComponentRootNode = function (componentRef) {
-        return componentRef.hostView.rootNodes[0];
-    };
-    /**
-     * Gets the root component container html element.
-     *
-     * @returns {HTMLElement}
-     *
-     * @memberOf InjectionService
-     */
-    InjectionService.prototype.getRootViewContainerNode = function () {
-        return this.getComponentRootNode(this.getRootViewContainer());
-    };
-    /**
-     * Projects the inputs onto the component
-     *
-     * @param {ComponentRef<any>} component
-     * @param {*} options
-     * @returns {ComponentRef<any>}
-     *
-     * @memberOf InjectionService
-     */
-    InjectionService.prototype.projectComponentInputs = function (component, options) {
-        if (options) {
-            var props = Object.getOwnPropertyNames(options);
-            for (var _i = 0, props_1 = props; _i < props_1.length; _i++) {
-                var prop = props_1[_i];
-                component.instance[prop] = options[prop];
-            }
-        }
-        return component;
-    };
-    /**
-     * Appends a component to a adjacent location
-     *
-     * @template T
-     * @param {Type<T>} componentClass
-     * @param {*} [options={}]
-     * @param {Element} [location=this.getRootViewContainerNode()]
-     * @returns {ComponentRef<any>}
-     *
-     * @memberOf InjectionService
-     */
-    InjectionService.prototype.appendComponent = function (componentClass, options, location) {
-        if (options === void 0) { options = {}; }
-        if (location === void 0) { location = this.getRootViewContainerNode(); }
-        var componentFactory = this.componentFactoryResolver.resolveComponentFactory(componentClass);
-        var componentRef = componentFactory.create(this.injector);
-        var appRef = this.applicationRef;
-        var componentRootNode = this.getComponentRootNode(componentRef);
-        // project the options passed to the component instance
-        this.projectComponentInputs(componentRef, options);
-        appRef.attachView(componentRef.hostView);
-        componentRef.onDestroy(function () {
-            appRef.detachView(componentRef.hostView);
-        });
-        location.appendChild(componentRootNode);
-        return componentRef;
-    };
-    return InjectionService;
-}());
-
-InjectionService.decorators = [
-    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"] },
-];
-/** @nocollapse */
-InjectionService.ctorParameters = function () { return [
-    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ApplicationRef"], },
-    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ComponentFactoryResolver"], },
-    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Injector"], },
-]; };
-//# sourceMappingURL=injector.service.js.map
-
-/***/ }),
-/* 7 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ShContextOverlayComponent; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__angular_core__);
-
-
-
-var ShContextOverlayComponent = (function () {
-    function ShContextOverlayComponent() {
-        this.onClick = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
-    }
-    return ShContextOverlayComponent;
-}());
-
-ShContextOverlayComponent.decorators = [
-    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"], args: [{
-                selector: 'sh-context-overlay',
-                template: "<div class=\"sh-context-overlay\" (mousedown)=\"onClick.emit()\"></div>",
-                styles: ["\n    .sh-context-overlay{\n      position: fixed;\n      top:0;\n      bottom: 0;\n      left: 0;\n      right: 0;\n      z-index: 99;\n      background-color: transparent;\n   }\n  "]
-            },] },
-];
-/** @nocollapse */
-ShContextOverlayComponent.ctorParameters = function () { return []; };
-ShContextOverlayComponent.propDecorators = {
-    'onClick': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"] },],
-};
-//# sourceMappingURL=sh-context-overlay.component.js.map
-
-/***/ }),
-/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -726,10 +562,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(0);
-var material_1 = __webpack_require__(4);
+var material_1 = __webpack_require__(2);
 var layouts_1 = __webpack_require__(3);
-var virtual_keyboard_service_1 = __webpack_require__(9);
-var VirtualKeyboardComponent = /** @class */ (function () {
+var virtual_keyboard_service_1 = __webpack_require__(7);
+var VirtualKeyboardComponent = (function () {
     /**
      * Constructor of the class.
      *
@@ -900,6 +736,7 @@ var VirtualKeyboardComponent = /** @class */ (function () {
      *  5) SpaceBar
      */
     VirtualKeyboardComponent.prototype.handleSpecialKey = function (event) {
+        console.log(event.keyValue);
         switch (event.keyValue) {
             case 'Enter':
                 this.confirmDispatch();
@@ -910,6 +747,11 @@ var VirtualKeyboardComponent = /** @class */ (function () {
                 break;
             case 'Backspace':
                 var currentValue = this.inputElement.nativeElement.value;
+                if (this.caretPosition > this.keyboardInput.nativeElement.value.length) {
+                    this.virtualKeyboardService.setCaretPosition(this.keyboardInput.nativeElement.value.length);
+                    this.caretPosition = this.keyboardInput.nativeElement.value.length;
+                }
+                console.log("backspace" + this.caretPosition);
                 // We have a caret position, so we need to remove char from that position
                 if (!isNaN(this.caretPosition)) {
                     // And current position must > 0
@@ -1030,11 +872,11 @@ var VirtualKeyboardComponent = /** @class */ (function () {
         $event.preventDefault();
     };
     VirtualKeyboardComponent.prototype.isNormalLetter = function (keycode) {
-        return (keycode > 47 && keycode < 58) || // number keys
-            keycode == 32 || // spacebar key (if you want to allow carriage returns)
-            (keycode > 64 && keycode < 123) || // letter keys
-            (keycode > 95 && keycode < 112) || // numpad keys
-            (keycode > 185 && keycode < 193) || // ;=,-./` (in order)
+        return (keycode > 47 && keycode < 58) ||
+            keycode == 32 ||
+            (keycode > 64 && keycode < 123) ||
+            (keycode > 95 && keycode < 112) ||
+            (keycode > 185 && keycode < 193) ||
             (keycode > 218 && keycode < 234) ||
             keycode == 252 || keycode == 163 ||
             (keycode > 32 && keycode < 64);
@@ -1050,7 +892,7 @@ var VirtualKeyboardComponent = /** @class */ (function () {
     VirtualKeyboardComponent = VirtualKeyboardComponent_1 = __decorate([
         core_1.Component({
             selector: 'virtual-keyboard',
-            template: "\n    <div class=\"container test\" (onBeforeMenuOpen)=\"onBefore($event)\" [sh-context]=\"menuItems\">\n      <div fxLayout=\"column\">\n        <md-input-container>\n          <button class=\"close\" color=\"primary\" md-mini-fab\n            (mouseup)=\"confirmDispatch()\"\n            tabindex=\"-1\"\n          >\n\t\t\t<md-icon *ngIf=\"!isIE\">check</md-icon>\n\t\t\t<span *ngIf=\"isIE\"></span>\n          </button>\n    \n          <input type=\"{{ type }}\"\n            mdInput\n            #keyboardInput\n            (click)=\"updateCaretPosition()\"\n            [(ngModel)]=\"inputElement.nativeElement.value\" placeholder=\"{{ placeholder }}\"\n            [maxLength]=\"maxLength\"\n            autofocus\n\t\t\ttabindex=\"1\"\n\t\t\t(keypress)=\"keyUp($event)\"\n          />\n        </md-input-container>\n    \n        <div fxLayout=\"row\" fxLayoutAlign=\"center center\"\n          *ngFor=\"let row of layout; let rowIndex = index\"\n          [attr.data-index]=\"rowIndex\"\n        >\n          <virtual-keyboard-key\n            *ngFor=\"let key of row; let keyIndex = index\"\n            [key]=\"key\"\n            [disabled]=\"disabled\"\n            [attr.data-index]=\"keyIndex\"\n            (keyPress)=\"keyPress($event)\"\n          ></virtual-keyboard-key>\n        </div>\n\t  </div>\n    </div>\n  ",
+            template: "\n    <div class=\"container test\" (onBeforeMenuOpen)=\"onBefore($event)\" [sh-context]=\"menuItems\">\n      <div fxLayout=\"column\">\n        <md-input-container>\n          <button class=\"close\" color=\"primary\" md-mini-fab\n            (mouseup)=\"confirmDispatch()\"\n\t    tabindex=\"-1\"\n          >\n\t\t\t<md-icon *ngIf=\"!isIE\">check</md-icon>\n\t\t\t<span *ngIf=\"isIE\"></span>\n          </button>\n    \n          <input type=\"{{ type }}\"\n            mdInput\n            #keyboardInput\n            (click)=\"updateCaretPosition()\"\n            [(ngModel)]=\"inputElement.nativeElement.value\" placeholder=\"{{ placeholder }}\"\n            [maxLength]=\"maxLength\"\n            autofocus\n\t\t\ttabindex=\"1\"\n\t\t\t(keypress)=\"keyUp($event)\"\n\t\t\tstyle=\"width: calc(100% - 90px);background-position-x: 100%;\"\n\t\t/>\n        </md-input-container>\n    \n        <div fxLayout=\"row\" fxLayoutAlign=\"center center\"\n          *ngFor=\"let row of layout; let rowIndex = index\"\n          [attr.data-index]=\"rowIndex\"\n        >\n          <virtual-keyboard-key\n            *ngFor=\"let key of row; let keyIndex = index\"\n            [key]=\"key\"\n            [disabled]=\"disabled\"\n            [attr.data-index]=\"keyIndex\"\n            (keyPress)=\"keyPress($event)\"\n          ></virtual-keyboard-key>\n        </div>\n\t  </div>\n    </div>\n  ",
             styles: ["\n    .close {\n      position: relative;\n      float: right;\n      top: -16px;\n      right: 0;\n      margin-bottom: -40px;\n    }\n  \n    .mat-input-container {\n      margin: -16px 0;\n      font-size: 32px;\n    }\n  \n    .mat-input-element:disabled {\n      color: currentColor;\n    }\n\n    :host /deep/ .mat-input-placeholder {\n      top: 10px !important;\n      font-size: 24px !important;\n\t}\n\t/* fallback */\n\t@font-face {\n\t  font-family: 'Material Icons';\n\t  font-style: normal;\n\t  font-weight: 400;\n\t  src: url(./assets/fonts/font.woff2) format('woff2');\n\t}\n\t\n\t.material-icons {\n\t  font-family: 'Material Icons';\n\t  font-weight: normal;\n\t  font-style: normal;\n\t  font-size: 24px;\n\t  line-height: 1;\n\t  letter-spacing: normal;\n\t  text-transform: none;\n\t  display: inline-block;\n\t  white-space: nowrap;\n\t  word-wrap: normal;\n\t  direction: ltr;\n\t  -webkit-font-feature-settings: 'liga';\n\t  -webkit-font-smoothing: antialiased;\n\t}\n  "]
         }),
         __metadata("design:paramtypes", [material_1.MdDialogRef,
@@ -1063,7 +905,7 @@ exports.VirtualKeyboardComponent = VirtualKeyboardComponent;
 
 
 /***/ }),
-/* 9 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1076,8 +918,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(0);
-var ReplaySubject_1 = __webpack_require__(22);
-var VirtualKeyboardService = /** @class */ (function () {
+var ReplaySubject_1 = __webpack_require__(12);
+var VirtualKeyboardService = (function () {
     function VirtualKeyboardService() {
         this.shift$ = new ReplaySubject_1.ReplaySubject(1);
         this.capsLock$ = new ReplaySubject_1.ReplaySubject(1);
@@ -1143,6 +985,7 @@ var VirtualKeyboardService = /** @class */ (function () {
      * @param {number}  position
      */
     VirtualKeyboardService.prototype.setCaretPosition = function (position) {
+        console.log("setCarret " + position);
         this.caretPosition$.next(position);
     };
     /**
@@ -1160,13 +1003,194 @@ exports.VirtualKeyboardService = VirtualKeyboardService;
 
 
 /***/ }),
-/* 10 */
+/* 8 */
 /***/ (function(module, exports) {
 
-module.exports = __WEBPACK_EXTERNAL_MODULE_10__;
+module.exports = __WEBPACK_EXTERNAL_MODULE_8__;
+
+/***/ }),
+/* 9 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ShContextOverlayComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__angular_core__);
+
+
+
+var ShContextOverlayComponent = (function () {
+    function ShContextOverlayComponent() {
+        this.onClick = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
+    }
+    return ShContextOverlayComponent;
+}());
+
+ShContextOverlayComponent.decorators = [
+    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"], args: [{
+                selector: 'sh-context-overlay',
+                template: "<div class=\"sh-context-overlay\" (mousedown)=\"onClick.emit()\"></div>",
+                styles: ["\n    .sh-context-overlay{\n      position: fixed;\n      top:0;\n      bottom: 0;\n      left: 0;\n      right: 0;\n      z-index: 99;\n      background-color: transparent;\n   }\n  "]
+            },] },
+];
+/** @nocollapse */
+ShContextOverlayComponent.ctorParameters = function () { return []; };
+ShContextOverlayComponent.propDecorators = {
+    'onClick': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"] },],
+};
+//# sourceMappingURL=sh-context-overlay.component.js.map
+
+/***/ }),
+/* 10 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return InjectionService; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__angular_core__);
+
+/**
+ * Injection service is a helper to append components
+ * dynamically to a known location in the DOM, most
+ * noteably for dialogs/tooltips appending to body.
+ *
+ * @export
+ * @class InjectionService
+ */
+var InjectionService = (function () {
+    function InjectionService(applicationRef, componentFactoryResolver, injector) {
+        this.applicationRef = applicationRef;
+        this.componentFactoryResolver = componentFactoryResolver;
+        this.injector = injector;
+    }
+    /**
+     * Gets the root view container to inject the component to.
+     *
+     * @returns {ComponentRef<any>}
+     *
+     * @memberOf InjectionService
+     */
+    InjectionService.prototype.getRootViewContainer = function () {
+        if (this._container)
+            return this._container;
+        var rootComponents = this.applicationRef['_rootComponents'];
+        if (rootComponents.length)
+            return rootComponents[0];
+        throw new Error('View Container not found! ngUpgrade needs to manually set this via setRootViewContainer.');
+    };
+    /**
+     * Overrides the default root view container. This is useful for
+     * things like ngUpgrade that doesn't have a ApplicationRef root.
+     *
+     * @param {any} container
+     *
+     * @memberOf InjectionService
+     */
+    InjectionService.prototype.setRootViewContainer = function (container) {
+        this._container = container;
+    };
+    /**
+     * Gets the html element for a component ref.
+     *
+     * @param {ComponentRef<any>} componentRef
+     * @returns {HTMLElement}
+     *
+     * @memberOf InjectionService
+     */
+    InjectionService.prototype.getComponentRootNode = function (componentRef) {
+        return componentRef.hostView.rootNodes[0];
+    };
+    /**
+     * Gets the root component container html element.
+     *
+     * @returns {HTMLElement}
+     *
+     * @memberOf InjectionService
+     */
+    InjectionService.prototype.getRootViewContainerNode = function () {
+        return this.getComponentRootNode(this.getRootViewContainer());
+    };
+    /**
+     * Projects the inputs onto the component
+     *
+     * @param {ComponentRef<any>} component
+     * @param {*} options
+     * @returns {ComponentRef<any>}
+     *
+     * @memberOf InjectionService
+     */
+    InjectionService.prototype.projectComponentInputs = function (component, options) {
+        if (options) {
+            var props = Object.getOwnPropertyNames(options);
+            for (var _i = 0, props_1 = props; _i < props_1.length; _i++) {
+                var prop = props_1[_i];
+                component.instance[prop] = options[prop];
+            }
+        }
+        return component;
+    };
+    /**
+     * Appends a component to a adjacent location
+     *
+     * @template T
+     * @param {Type<T>} componentClass
+     * @param {*} [options={}]
+     * @param {Element} [location=this.getRootViewContainerNode()]
+     * @returns {ComponentRef<any>}
+     *
+     * @memberOf InjectionService
+     */
+    InjectionService.prototype.appendComponent = function (componentClass, options, location) {
+        if (options === void 0) { options = {}; }
+        if (location === void 0) { location = this.getRootViewContainerNode(); }
+        var componentFactory = this.componentFactoryResolver.resolveComponentFactory(componentClass);
+        var componentRef = componentFactory.create(this.injector);
+        var appRef = this.applicationRef;
+        var componentRootNode = this.getComponentRootNode(componentRef);
+        // project the options passed to the component instance
+        this.projectComponentInputs(componentRef, options);
+        appRef.attachView(componentRef.hostView);
+        componentRef.onDestroy(function () {
+            appRef.detachView(componentRef.hostView);
+        });
+        location.appendChild(componentRootNode);
+        return componentRef;
+    };
+    return InjectionService;
+}());
+
+InjectionService.decorators = [
+    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"] },
+];
+/** @nocollapse */
+InjectionService.ctorParameters = function () { return [
+    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ApplicationRef"], },
+    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ComponentFactoryResolver"], },
+    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Injector"], },
+]; };
+//# sourceMappingURL=injector.service.js.map
 
 /***/ }),
 /* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var virtual_keyboard_directive_1 = __webpack_require__(5);
+exports.NgVirtualKeyboardDirective = virtual_keyboard_directive_1.NgVirtualKeyboardDirective;
+var virtual_keyboard_module_1 = __webpack_require__(13);
+exports.NgVirtualKeyboardModule = virtual_keyboard_module_1.NgVirtualKeyboardModule;
+
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports) {
+
+module.exports = __WEBPACK_EXTERNAL_MODULE_12__;
+
+/***/ }),
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1179,16 +1203,16 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(0);
-var common_1 = __webpack_require__(10);
-var forms_1 = __webpack_require__(21);
-var material_1 = __webpack_require__(4);
-var flex_layout_1 = __webpack_require__(20);
-var ng2_right_click_menu_1 = __webpack_require__(12);
+var common_1 = __webpack_require__(8);
+var forms_1 = __webpack_require__(14);
+var material_1 = __webpack_require__(2);
+var flex_layout_1 = __webpack_require__(15);
+var ng2_right_click_menu_1 = __webpack_require__(16);
 var virtual_keyboard_directive_1 = __webpack_require__(5);
-var virtual_keyboard_component_1 = __webpack_require__(8);
-var virtual_keyboard_key_component_1 = __webpack_require__(19);
-var virtual_keyboard_service_1 = __webpack_require__(9);
-var NgVirtualKeyboardModule = /** @class */ (function () {
+var virtual_keyboard_component_1 = __webpack_require__(6);
+var virtual_keyboard_key_component_1 = __webpack_require__(22);
+var virtual_keyboard_service_1 = __webpack_require__(7);
+var NgVirtualKeyboardModule = (function () {
     function NgVirtualKeyboardModule() {
     }
     NgVirtualKeyboardModule = __decorate([
@@ -1226,18 +1250,84 @@ exports.NgVirtualKeyboardModule = NgVirtualKeyboardModule;
 
 
 /***/ }),
-/* 12 */
+/* 14 */
+/***/ (function(module, exports) {
+
+module.exports = __WEBPACK_EXTERNAL_MODULE_14__;
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports) {
+
+module.exports = __WEBPACK_EXTERNAL_MODULE_15__;
+
+/***/ }),
+/* 16 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__src_sh_context_menu_module__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__src_sh_context_menu_module__ = __webpack_require__(17);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "ShContextMenuModule", function() { return __WEBPACK_IMPORTED_MODULE_0__src_sh_context_menu_module__["a"]; });
 
 //# sourceMappingURL=index.js.map
 
 /***/ }),
-/* 13 */
+/* 17 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ShContextMenuModule; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__angular_core__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__angular_common__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__html_directive__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__sh_context_overlay_component__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__sh_context_menu_directive__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__sh_context_menu_component__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__sh_context_sub_menu_directive__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__sh_context_service__ = __webpack_require__(1);
+
+
+
+
+
+
+
+
+var ShContextMenuModule = (function () {
+    function ShContextMenuModule() {
+    }
+    return ShContextMenuModule;
+}());
+
+ShContextMenuModule.decorators = [
+    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"], args: [{
+                declarations: [
+                    __WEBPACK_IMPORTED_MODULE_4__sh_context_menu_directive__["a" /* ShContextMenuDirective */],
+                    __WEBPACK_IMPORTED_MODULE_5__sh_context_menu_component__["a" /* ShContextMenuComponent */],
+                    __WEBPACK_IMPORTED_MODULE_6__sh_context_sub_menu_directive__["a" /* ShContextSubMenuDirective */],
+                    __WEBPACK_IMPORTED_MODULE_3__sh_context_overlay_component__["a" /* ShContextOverlayComponent */],
+                    __WEBPACK_IMPORTED_MODULE_2__html_directive__["a" /* HtmlDirective */]
+                ],
+                exports: [__WEBPACK_IMPORTED_MODULE_4__sh_context_menu_directive__["a" /* ShContextMenuDirective */]],
+                imports: [
+                    __WEBPACK_IMPORTED_MODULE_1__angular_common__["CommonModule"],
+                    __WEBPACK_IMPORTED_MODULE_7__sh_context_service__["b" /* ShContextServiceModule */]
+                ],
+                entryComponents: [
+                    __WEBPACK_IMPORTED_MODULE_5__sh_context_menu_component__["a" /* ShContextMenuComponent */],
+                    __WEBPACK_IMPORTED_MODULE_3__sh_context_overlay_component__["a" /* ShContextOverlayComponent */]
+                ]
+            },] },
+];
+/** @nocollapse */
+ShContextMenuModule.ctorParameters = function () { return []; };
+//# sourceMappingURL=sh-context-menu.module.js.map
+
+/***/ }),
+/* 18 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1272,7 +1362,7 @@ HtmlDirective.propDecorators = {
 //# sourceMappingURL=html.directive.js.map
 
 /***/ }),
-/* 14 */
+/* 19 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1280,9 +1370,9 @@ HtmlDirective.propDecorators = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__sh_context_service__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__angular_core__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__sh_context_overlay_component__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__sh_context_menu_component__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__injector_service__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__sh_context_overlay_component__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__sh_context_menu_component__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__injector_service__ = __webpack_require__(10);
 
 
 
@@ -1368,7 +1458,7 @@ ShContextMenuDirective.decorators = [
 ShContextMenuDirective.ctorParameters = function () { return [
     { type: __WEBPACK_IMPORTED_MODULE_1__angular_core__["ViewContainerRef"], },
     { type: __WEBPACK_IMPORTED_MODULE_1__angular_core__["ComponentFactoryResolver"], },
-    { type: __WEBPACK_IMPORTED_MODULE_0__sh_context_service__["b" /* ShContextService */], },
+    { type: __WEBPACK_IMPORTED_MODULE_0__sh_context_service__["a" /* ShContextService */], },
     { type: __WEBPACK_IMPORTED_MODULE_4__injector_service__["a" /* InjectionService */], },
 ]; };
 ShContextMenuDirective.propDecorators = {
@@ -1381,7 +1471,7 @@ ShContextMenuDirective.propDecorators = {
 //# sourceMappingURL=sh-context-menu.directive.js.map
 
 /***/ }),
-/* 15 */
+/* 20 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1393,68 +1483,14 @@ var ShContextDefaultOptions = {
 //# sourceMappingURL=sh-context-menu.models.js.map
 
 /***/ }),
-/* 16 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ShContextMenuModule; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__angular_core__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__angular_common__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__html_directive__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__sh_context_overlay_component__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__sh_context_menu_directive__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__sh_context_menu_component__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__sh_context_sub_menu_directive__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__sh_context_service__ = __webpack_require__(1);
-
-
-
-
-
-
-
-
-var ShContextMenuModule = (function () {
-    function ShContextMenuModule() {
-    }
-    return ShContextMenuModule;
-}());
-
-ShContextMenuModule.decorators = [
-    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"], args: [{
-                declarations: [
-                    __WEBPACK_IMPORTED_MODULE_4__sh_context_menu_directive__["a" /* ShContextMenuDirective */],
-                    __WEBPACK_IMPORTED_MODULE_5__sh_context_menu_component__["a" /* ShContextMenuComponent */],
-                    __WEBPACK_IMPORTED_MODULE_6__sh_context_sub_menu_directive__["a" /* ShContextSubMenuDirective */],
-                    __WEBPACK_IMPORTED_MODULE_3__sh_context_overlay_component__["a" /* ShContextOverlayComponent */],
-                    __WEBPACK_IMPORTED_MODULE_2__html_directive__["a" /* HtmlDirective */]
-                ],
-                exports: [__WEBPACK_IMPORTED_MODULE_4__sh_context_menu_directive__["a" /* ShContextMenuDirective */]],
-                imports: [
-                    __WEBPACK_IMPORTED_MODULE_1__angular_common__["CommonModule"],
-                    __WEBPACK_IMPORTED_MODULE_7__sh_context_service__["a" /* ShContextServiceModule */]
-                ],
-                entryComponents: [
-                    __WEBPACK_IMPORTED_MODULE_5__sh_context_menu_component__["a" /* ShContextMenuComponent */],
-                    __WEBPACK_IMPORTED_MODULE_3__sh_context_overlay_component__["a" /* ShContextOverlayComponent */]
-                ]
-            },] },
-];
-/** @nocollapse */
-ShContextMenuModule.ctorParameters = function () { return []; };
-//# sourceMappingURL=sh-context-menu.module.js.map
-
-/***/ }),
-/* 17 */
+/* 21 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ShContextSubMenuDirective; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__angular_core__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__sh_context_menu_component__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__sh_context_menu_component__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__sh_context_service__ = __webpack_require__(1);
 
 
@@ -1520,7 +1556,7 @@ ShContextSubMenuDirective.ctorParameters = function () { return [
     { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewContainerRef"], },
     { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ElementRef"], },
     { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ComponentFactoryResolver"], },
-    { type: __WEBPACK_IMPORTED_MODULE_2__sh_context_service__["b" /* ShContextService */], },
+    { type: __WEBPACK_IMPORTED_MODULE_2__sh_context_service__["a" /* ShContextService */], },
 ]; };
 ShContextSubMenuDirective.propDecorators = {
     'menuItems': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"], args: ['sh-context-sub-menu',] },],
@@ -1531,20 +1567,7 @@ ShContextSubMenuDirective.propDecorators = {
 //# sourceMappingURL=sh-context-sub-menu.directive.js.map
 
 /***/ }),
-/* 18 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var virtual_keyboard_directive_1 = __webpack_require__(5);
-exports.NgVirtualKeyboardDirective = virtual_keyboard_directive_1.NgVirtualKeyboardDirective;
-var virtual_keyboard_module_1 = __webpack_require__(11);
-exports.NgVirtualKeyboardModule = virtual_keyboard_module_1.NgVirtualKeyboardModule;
-
-
-/***/ }),
-/* 19 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1561,7 +1584,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(0);
 var layouts_1 = __webpack_require__(3);
-var VirtualKeyboardKeyComponent = /** @class */ (function () {
+var VirtualKeyboardKeyComponent = (function () {
     /**
      * Constructor of the class.
      */
@@ -1695,24 +1718,6 @@ var VirtualKeyboardKeyComponent = /** @class */ (function () {
 }());
 exports.VirtualKeyboardKeyComponent = VirtualKeyboardKeyComponent;
 
-
-/***/ }),
-/* 20 */
-/***/ (function(module, exports) {
-
-module.exports = __WEBPACK_EXTERNAL_MODULE_20__;
-
-/***/ }),
-/* 21 */
-/***/ (function(module, exports) {
-
-module.exports = __WEBPACK_EXTERNAL_MODULE_21__;
-
-/***/ }),
-/* 22 */
-/***/ (function(module, exports) {
-
-module.exports = __WEBPACK_EXTERNAL_MODULE_22__;
 
 /***/ })
 /******/ ]);

@@ -4,7 +4,7 @@ var core_1 = require("@angular/core");
 var material_1 = require("@angular/material");
 var virtual_keyboard_component_1 = require("./virtual-keyboard.component");
 var layouts_1 = require("./layouts");
-var NgVirtualKeyboardDirective = /** @class */ (function () {
+var NgVirtualKeyboardDirective = (function () {
     /**
      * Constructor of the class.
      *
@@ -46,6 +46,7 @@ var NgVirtualKeyboardDirective = /** @class */ (function () {
             this.dialogRef.componentInstance.placeholder = this.getPlaceHolder();
             this.dialogRef.componentInstance.type = this.getType();
             this.dialogRef.componentInstance.noRightClick = this.getRightClickDisabled();
+            this.virtualKeyboardComponent.virtualKeyboardService.setCaretPosition(this.virtualKeyboardComponent.keyboardInput.nativeElement.selectionStart);
             this.dialogRef
                 .afterClosed()
                 .subscribe(function () {
